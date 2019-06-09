@@ -1,23 +1,19 @@
 # __author__ : htzs
 # __time__   : 19-5-6 下午4:02
-import json
-import time
-from pprint import pprint
+
 
 from django.http import HttpResponse, JsonResponse
 from django.views.generic.base import View
 # from utils import result
 # from utils.vpm import UserAuth, RecTree, LiveView, Device_open, Device_close, Device_status
 from django.core.cache import cache
-
-# import result
-from utils.vpm import RecTree, UserAuth, LiveView, Device_status, VideoView, DownLoad_Video, \
-    Device_open_close
-
+import json
+# from utils.vpm import RecTree, UserAuth, LiveView, DeviceOpen, DeviceClose, DeviceStatus, VideoView, DownLoadVideo
+import time
+import datetime
 from utils import result
-
-
-# from vpm import DownLoad_Video, UserAuth,RecTree,LiveView,Device_open,Device_status,VideoView
+from utils.vpm import UserAuth, RecTree, UserAuth, LiveView, DeviceOpen, DeviceClose, DeviceStatus, VideoView, \
+    DownLoadVideo
 
 
 class AuthTokenView(UserAuth, View):
@@ -46,12 +42,79 @@ class AuthTokenView(UserAuth, View):
             }
             cache.clear()
             cache.set('token', token, 30 * 60)
-            return result.result(message='success', data=auth)
+            return result.result(message='成功', data=auth)
         else:
-            return result.result(message='success', data=token)
-            #
-            # data = self.token_auth(username, password)
-            # return result.result(message=data)
+            return result.result(message='成功', data=token)
+
+
+def switch_tree_format(rec_data):
+    '''数据格式转换'''
+    # print(rec_data)
+
+    quantong_tree = {
+        "groupList": [],
+        "devList": []
+    }
+
+    def add_group(total):
+        if total.__contains__("dataList"):
+            for group in total["dataList"]:
+                if group["menuName"] != "设备信息":
+                    add_group(group)
+
+                    object_added_into_grouplist = {}
+                    object_added_into_grouplist["groupId"] = group["id"]
+                    object_added_into_grouplist["groupName"] = group["name"]
+                    object_added_into_grouplist["parentId"] = group["parentId"]
+                    object_added_into_grouplist["clientId"] = "admin"
+                    object_added_into_grouplist["groupType"] = "1"
+                    quantong_tree["groupList"].append(object_added_into_grouplist)
+                else:
+                    break
+        else:
+            pass
+
+    def add_camera(total):
+        if total.__contains__("dataList"):
+            for group in total["dataList"]:
+                if group["menuName"] != "设备信息":
+                    add_camera(group)
+                else:
+
+                    object_added_into_devlist = {}
+                    object_added_into_devlist["devId"] = group["id"]
+                    object_added_into_devlist["devName"] = group["name"]
+                    object_added_into_devlist["status"] = group["status"]
+                    object_added_into_devlist["clientId"] = "admin"
+                    object_added_into_devlist["cameraList"] = []
+                    if group.__contains__("dataList"):
+                        for pipeline in group["dataList"]:
+                            pipe = {}
+
+                            pipe["cameraId"] = pipeline["id"]
+                            pipe["cameraName"] = pipeline["name"]
+                            pipe["status"] = pipeline["status"]
+                            pipe["groupId"] = pipeline["parentId"]
+
+                            object_added_into_devlist["cameraList"].append(pipe)
+
+                    quantong_tree["devList"].append(object_added_into_devlist)
+        else:
+            pass
+
+    for rec_data in rec_data["data"]:
+        object_added_into_grouplist = {}
+        object_added_into_grouplist["groupId"] = rec_data["id"]
+        object_added_into_grouplist["groupName"] = rec_data["name"]
+        object_added_into_grouplist["parentId"] = ""
+        object_added_into_grouplist["clientId"] = "admin"
+        object_added_into_grouplist["groupType"] = "1"
+        quantong_tree["groupList"].append(object_added_into_grouplist)
+
+        add_group(rec_data)
+        add_camera(rec_data)
+
+    return quantong_tree
 
 
 class RecTreeView(RecTree, View):
@@ -59,25 +122,16 @@ class RecTreeView(RecTree, View):
     处理设备树返回
     """
 
-    def get(self, request):
-        rec_data = self.rec_tree()
-        # print(rec_data)
-        # data_list = rec_data['data'][0]['dataList']
-        # pprint(rec_data['data'][0]['dataList'])
+    def post(self, request):
         try:
-            data = rec_data['data'][0]
-            return JsonResponse(data=data)
+            rec_data = self.rec_tree()
+            if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                return JsonResponse(data=rec_data)
+            else:
+                quantong_tree = switch_tree_format(rec_data)
+                return result.result(code=rec_data["code"], message="成功", data=quantong_tree)
         except:
-            code = rec_data['code']
-            message = rec_data['message']
-            data = {
-                "errorCode": code,
-                "errorDesc": message
-            }
-            return result.result(data=data)
-        # else:
-        #     rec_data = rec_data
-        #     return result.result(data=rec_data)
+            return result.params_error(message='请求错误,请重试...')
 
 
 class DevLiveView(LiveView, View):
@@ -88,191 +142,156 @@ class DevLiveView(LiveView, View):
     streamType
     """
 
-    def get(self, request):
-        camera_id = request.GET.get('camera_id', '')
-        receve_data = self.live_view(camera_id=camera_id)
+    def post(self, request):
         try:
-
-            receve_data = receve_data
-            url = receve_data['data']['address']
-            return result.result(data={'url': url}, message='success')
-            # return JsonResponse(data=receve_data)
-        except Exception:
-            code = receve_data['code']
-            message = receve_data['message']
-            data = {
-                "errorCode": code,
-                "errorDesc": message
-            }
-            return result.result(data=data)
+            temp = json.loads(request.body.decode())
+            camera_id = temp["cameraId"]
+            rec_data = self.live_view(camera_id=camera_id)
+            if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                return JsonResponse(data=rec_data)
+            else:
+                url = rec_data['data']['address']
+                return result.result(data={'url': url}, message='成功', code=rec_data["code"])
+        except:
+            return result.params_error(message='请求错误,请重试...')
 
 
-class Deviceopen_close_View(Device_open_close, View):
-    '''开启设备'''
-
-    # 返回cameraProcessResult，errorCode，errorDesc
+class DeviceTurnOnOffView(DeviceOpen, DeviceClose, View):
+    '''开启关闭设备'''
 
     def post(self, request):
         try:
-            camera_id = json.loads(request.body.decode().replace("'", "\"")).get('camera_id')
-            equipmentSwitch = json.loads(request.body.decode().replace("'", "\"")).get('equipmentSwitch')
-            if equipmentSwitch == "1":
-                # 开启设备
-                data = self.device_open(camera_id=camera_id)
-                code = data['code']
-                message = data['message']
-                errorCode = code
-                errorDesc = message
-                if code == 200:
-                    '''开启设备成功'''
-                    cameraProcessResult = 1
-                    data = {
-                        "cameraProcessResult": cameraProcessResult,
-                        "errorCode": errorCode,
-                        "errorDesc": errorDesc
-                    }
-                    return JsonResponse(data=data)
+            temp = json.loads(request.body.decode())
+            camera_id = temp["cameraId"]
+            on_or_off = int(temp["equipmentSwitch"])
+
+            return_data = {
+                "cameraProcessResult": "0",
+                "errorCode": "",
+                "errorDesc": ""
+            }
+
+            if on_or_off == 1:
+                rec_data = self.device_open(camera_id=camera_id)
+                if rec_data["code"] != 200 and rec_data["code"] != 1002:
+                    return_data["cameraProcessResult"] = "2"
+                    return_data["errorCode"] = str(rec_data["code"])
+                    return_data["errorDesc"] = rec_data["message"]
+                    return result.result(code=rec_data["code"], message="失败", data=return_data)
                 else:
-                    '''开启设备失败'''
-                    cameraProcessResult = 2
-                    data = {
-                        "cameraProcessResult": cameraProcessResult,
-                        "errorCode": errorCode,
-                        "errorDesc": errorDesc
-                    }
-                    return JsonResponse(data=data)
+                    return_data["cameraProcessResult"] = "1"
+                    return result.result(code=200, message="成功", data=return_data)
+
+            elif on_or_off == 0:
+                rec_data = self.device_close(camera_id=camera_id)
+                if rec_data["code"] != 200 and rec_data["code"] != 1001:
+                    return_data["cameraProcessResult"] = "4"
+                    return_data["errorCode"] = str(rec_data["code"])
+                    return_data["errorDesc"] = rec_data["message"]
+                    return result.result(code=rec_data["code"], message="失败", data=return_data)
+                else:
+                    return_data["cameraProcessResult"] = "3"
+                    return result.result(code=200, message="成功", data=return_data)
             else:
-                # 关闭设备
-                # 当equipmentSwitch=="0"
-                data = self.device_close(camera_id=camera_id)
-                print(data)
-                code = data['code']
-                message = data['message']
-                errorCode = code
-                errorDesc = message
-                if code == 200:
-                    '''关闭设备成功'''
-                    cameraProcessResult = 3
-                    data = {
-                        "cameraProcessResult": cameraProcessResult,
-                        "errorCode": errorCode,
-                        "errorDesc": errorDesc
-                    }
-                    return JsonResponse(data=data)
-                else:
-                    '''关闭设备失败'''
-                    cameraProcessResult = 4
-                    data = {
-                        "cameraProcessResult": cameraProcessResult,
-                        "errorCode": errorCode,
-                        "errorDesc": errorDesc
-                    }
-                    return JsonResponse(data=data)
-        except Exception as e:
-            return result.result(data={"error_message": e})
+                raise Exception
+        except:
+            return result.params_error(message='请求错误,请重试...')
 
 
-class Devicestatus_View(Device_status, View):
+class DeviceStatusView(DeviceStatus, View):
     '''查询运行状态'''
 
-    # 返回deviceId，cameraState
-    def get(self, request):
-        camera_id = request.GET.get('camera_id', '')
-        data = self.device_status(camera_id=camera_id)
-        try:
-            deviceId = data['data']['deviceId']
-            cameraState = data['data']['automatic']
-            data = {
-                "cameraId": deviceId,
-                "cameraState": cameraState
-            }
-            return result.result(data=data)
-        except Exception as e:
-            code = data['code']
-            message = data['message']
-            data = {
-                "errorCode": code,
-                "errorDesc": message
-            }
-            return result.result(data=data)
-
-
-class PlayBack_View(VideoView, View):
     def post(self, request):
-        '''全通要求响应
-        data
-	    list
-		beginTime
-		endTime
-		playbackUrl
-	    total
-	    totalTimeUrl
-    isWarning'''
-        camera_id = json.loads(request.body.decode().replace("'", "\"")).get('camera_id')
-        beginTime = json.loads(request.body.decode().replace("'", "\"")).get('beginTime')
-        endTime = json.loads(request.body.decode().replace("'", "\"")).get('endTime')
-        data = self.video_view(camera_id=camera_id, beginTime=beginTime, endTime=endTime)
         try:
-            url = data['data']['address']
-            return_data = {
-                "list":
-                    [
-                        {
-                            "beginTime": beginTime,
-                            "endTime": endTime,
-                            "playbackUrl": url
-                        }
-                    ],
-                "total": 1,
-                "totalTimeUrl": url,
-                "isWarning": 0
-            }
-            return result.result(data=return_data, message='success')
-        except Exception as e:
-
-            code = data['code']
-            message = data['message']
-            data = {
-                "errorCode": code,
-                "errorDesc": message
-            }
-            return result.result(data=data)
-
-
-class DownLoadView(DownLoad_Video, View):
-    def post(self, request):
-        camera_id = json.loads(request.body.decode().replace("'", "\"")).get('camera_id')
-        beginTime = json.loads(request.body.decode().replace("'", "\"")).get('beginTime')
-        endTime = json.loads(request.body.decode().replace("'", "\"")).get('endTime')
-        # 加判断,如果传递来的都是0,需要获取当天零点到当前的时间来算,
-        # 没有传递0,就按照实际时间戳来计算
-        if beginTime == 0 and endTime == 0:
-            beginTime = int(time.time()) - int(time.time() - time.timezone) % 86400
-            endTime = int(time.time()) - 300
-            data = self.down_load(camera_id, beginTime, endTime)
-            try:
-                code = data['code']
-                message = data['message']
-                rec_data = data['data']
-                url = rec_data['address']
+            temp = json.loads(request.body.decode())
+            camera_id = temp["cameraId"]
+            rec_data = self.device_status(camera_id=camera_id)
+            if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                return JsonResponse(data=rec_data)
+            else:
                 return_data = {
-                    "videoDownloadFormat": ".mp4",
-                    "url": url
+                    "cameraId": rec_data["data"]['channelId'],
+                    "cameraState": -1
                 }
 
-                return result.result(data=return_data, code=code, message=message)
-            except Exception as e:
-                code = data['code']
-                message = data['message']
-                return result.result(data=data, code=code, message=message)
-        else:
-            data = self.down_load(camera_id, beginTime, endTime)
-            # code = data['code']
-            # message = data['message']
-            rec_data = data['data']
-            url = rec_data['address']
-            return_data = {
-                "videoDownloadFormat": ".mp4",
-                "url": url
-            }
-            return result.result(data=return_data)
+                if rec_data["data"]["online"]:
+                    if rec_data["data"]["flow"]:
+                        return_data["cameraState"] = 1
+                    else:
+                        return_data["cameraState"] = 2
+                else:
+                    return_data["cameraState"] = 3
+
+                return result.result(code=rec_data["code"], message="成功", data=return_data)
+        except:
+            return result.params_error(message='请求错误,请重试...')
+
+
+class PlayBackView(VideoView, View):
+    '''视频录像回放地址'''
+
+    def post(self, request):
+        try:
+            camera_id = json.loads(request.body.decode().replace("'", "\"")).get('cameraId')
+            begin_time = json.loads(request.body.decode().replace("'", "\"")).get('beginTime')
+            end_time = json.loads(request.body.decode().replace("'", "\"")).get('endTime')
+            begin_time = int(begin_time)
+            end_time = int(end_time)
+            if begin_time == 0:
+                begin_time = int(time.time()) - int(time.time() - time.timezone) % 86400
+                if end_time == 0:
+                    end_time = int(time.time()) - 300
+            if begin_time != 0 and end_time == 0:
+                day = time.localtime(begin_time)
+                end_time = begin_time - (day[-4] + day[-5] * 60 + day[-6] * 3600) + 86400
+
+            rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time, end_time=end_time)
+
+            if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                return JsonResponse(data=rec_data)
+            else:
+                url = rec_data['data']['address']
+                return_data = {
+                    "data": {
+                        "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)}, {"playbackUrl": url}],
+                        "total": 1,
+                        "totalTimeUrl": url
+                    },
+                    "isWarning": 0
+                }
+                return result.result(data=return_data, message="成功", code=rec_data["code"])
+        except:
+            return result.params_error(message='请求错误,请重试...')
+
+
+class DownLoadView(DownLoadVideo, View):
+    '''视频下载'''
+
+    def post(self, request):
+        try:
+            camera_id = json.loads(request.body.decode().replace("'", "\"")).get('cameraId')
+            begin_time = json.loads(request.body.decode().replace("'", "\"")).get('beginTime')
+            end_time = json.loads(request.body.decode().replace("'", "\"")).get('endTime')
+            # 加判断,如果传递来的都是0,需要获取当天零点到当前的时间来算,
+            # 没有传递0,就按照实际时间戳来计算
+
+            if begin_time == "0":
+                begin_time = int(time.time()) - int(time.time() - time.timezone) % 86400
+                if end_time == "0":
+                    end_time = int(time.time()) - 300
+            if begin_time != "0" and end_time == "0":
+                day = time.localtime(begin_time)
+                end_time = begin_time - (day[-4] + day[-5] * 60 + day[-6] * 3600) + 86400
+
+            rec_data = self.down_load(camera_id, int(begin_time), int(end_time))
+            if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                return JsonResponse(data=rec_data)
+            else:
+                url = rec_data["data"]['address']
+                return_data = {
+                    "videoDownloadFormat": url
+                }
+
+                return result.result(data=return_data, message="成功", code=rec_data["code"])
+        except:
+            return result.params_error(message='请求错误,请重试...')
