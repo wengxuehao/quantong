@@ -16,6 +16,7 @@ tomorrowNow = now + datetime.timedelta(hours=23, minutes=59, seconds=59)
 beginTime = int(time.time()) - int(time.time() - time.timezone) % 86400
 print('时间差', datetime.timedelta(hours=23, minutes=59, seconds=59))
 print('当前时间', now)
+print(int(time.time()))
 print('今天零点', zeroToday)
 print('获取23:59:59', lastToday)
 print('昨天当前时间', yesterdayNow)

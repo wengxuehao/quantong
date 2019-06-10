@@ -24,7 +24,7 @@ SECRET_KEY = 'ex%5f275)^zq!bx@-w)tm-23-^6aq=zm90b#!k19&*5l9@1-lt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -135,3 +135,4 @@ TURN_OFF_URL = 'http://111.13.138.184:8090/api/v1/func/channelStatus'  # 关闭�
 DEVICE_STATUS_URL = 'http://111.13.138.184:8090/api/v1/func/channel'  # 设备状态查询
 DOWNLOAD_URL = 'http://111.13.138.184:8090/api/v1/func/downloadRecordFileAddress'  # 下载录像
 PlayBack_URL = 'http://111.13.138.184:8090/api/v1/func/downloadRecordFileAddress'  # 获取录像回看地址
+File_Url = "http://111.13.138.184:8090/api/v1/func/recordList"

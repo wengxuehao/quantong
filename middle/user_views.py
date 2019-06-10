@@ -80,7 +80,6 @@ def switch_tree_format(rec_data):
                 if group["menuName"] != "设备信息":
                     add_camera(group)
                 else:
-
                     object_added_into_devlist = {}
                     object_added_into_devlist["devId"] = group["id"]
                     object_added_into_devlist["devName"] = group["name"]
@@ -239,12 +238,19 @@ class PlayBackView(VideoView, View):
             end_time = int(end_time)
             if begin_time == 0:
                 begin_time = int(time.time()) - int(time.time() - time.timezone) % 86400
+                # print(begin_time)
                 if end_time == 0:
-                    end_time = int(time.time()) - 300
+                    try:
+                        camera_id1 = camera_id
+                        rec_data1 = self.get_file(camera_id=camera_id1)
+                        clist = rec_data1['data']['cList']
+                        end_time = rec_data1['data']['cList'][-1]['nEnd']
+                        # print(rec_data1)
+                    except Exception as e:
+                        print(e)
             if begin_time != 0 and end_time == 0:
                 day = time.localtime(begin_time)
                 end_time = begin_time - (day[-4] + day[-5] * 60 + day[-6] * 3600) + 86400
-
             rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time, end_time=end_time)
 
             if rec_data["code"] >= 400 or rec_data["code"] < 200:
@@ -272,26 +278,41 @@ class DownLoadView(DownLoadVideo, View):
             camera_id = json.loads(request.body.decode().replace("'", "\"")).get('cameraId')
             begin_time = json.loads(request.body.decode().replace("'", "\"")).get('beginTime')
             end_time = json.loads(request.body.decode().replace("'", "\"")).get('endTime')
+            # print(end_time)
             # 加判断,如果传递来的都是0,需要获取当天零点到当前的时间来算,
             # 没有传递0,就按照实际时间戳来计算
-
             if begin_time == "0":
                 begin_time = int(time.time()) - int(time.time() - time.timezone) % 86400
                 if end_time == "0":
-                    end_time = int(time.time()) - 300
-            if begin_time != "0" and end_time == "0":
+
+                    try:
+                        camera_id1 = camera_id
+                        rec_data1 = self.get_file(camera_id=camera_id1)
+                        clist= rec_data1['data']['cList']
+                        end_time = rec_data1['data']['cList'][-1]['nEnd']
+                        # print(rec_data1)
+                    except Exception as e:
+                        print(e)
+                    rec_data = self.down_load(camera_id, int(begin_time), int(end_time))
+                    if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                        return JsonResponse(data=rec_data)
+                    else:
+                        url = rec_data["data"]['address']
+                        return_data = {
+                            "videoDownloadFormat": url
+                        }
+                        return result.result(data=return_data, message="成功", code=rec_data["code"])
+            else:
                 day = time.localtime(begin_time)
                 end_time = begin_time - (day[-4] + day[-5] * 60 + day[-6] * 3600) + 86400
-
-            rec_data = self.down_load(camera_id, int(begin_time), int(end_time))
-            if rec_data["code"] >= 400 or rec_data["code"] < 200:
-                return JsonResponse(data=rec_data)
-            else:
-                url = rec_data["data"]['address']
-                return_data = {
-                    "videoDownloadFormat": url
-                }
-
-                return result.result(data=return_data, message="成功", code=rec_data["code"])
+                rec_data = self.down_load(camera_id, int(begin_time), int(end_time))
+                if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                    return JsonResponse(data=rec_data)
+                else:
+                    url = rec_data["data"]['address']
+                    return_data = {
+                        "videoDownloadFormat": url
+                    }
+                    return result.result(data=return_data, message="成功", code=rec_data["code"])
         except:
             return result.params_error(message='请求错误,请重试...')

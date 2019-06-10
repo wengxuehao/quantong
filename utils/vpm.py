@@ -20,6 +20,7 @@ class BaseData:
         self.close_url = settings.TURN_OFF_URL
         self.device_status_url = settings.DEVICE_STATUS_URL
         self.download_url = settings.DOWNLOAD_URL
+        self.get_file_url = settings.File_Url
 
     @property
     def auth_token(self):
@@ -76,6 +77,7 @@ class RecTree(BaseData):
 
     def rec_tree(self):
         try:
+            print(self.auth_token)
             rec_data = requests.get(url=self.dev_tree_url, headers=self.auth_token)
             data = rec_data.json()
             return data
@@ -203,6 +205,17 @@ class VideoView(BaseData):
         except:
             return result.server_error(message='请求失败,请重试.')
 
+    def get_file(self, camera_id):
+        params = {
+            'channelId': camera_id
+        }
+        try:
+            rec_data = requests.get(url=self.get_file_url, params=params, headers=self.auth_token)
+            rec_data = rec_data.json()
+            return rec_data
+        except requests.exceptions.ConnectTimeout:
+            return result.server_error(message='链接超时,请重试.')
+
 
 class DownLoadVideo(BaseData):
     def down_load(self, camera_id, begin_time, end_time):
@@ -220,3 +233,28 @@ class DownLoadVideo(BaseData):
             return result.server_error(message='链接超时,请重试.')
         except:
             return result.server_error(message='请求失败,请重试.')
+
+    def get_file(self, camera_id):
+        params = {
+            'channelId': camera_id
+        }
+        try:
+            rec_data = requests.get(url=self.get_file_url, params=params, headers=self.auth_token)
+            rec_data = rec_data.json()
+            return rec_data
+        except requests.exceptions.ConnectTimeout:
+            return result.server_error(message='链接超时,请重试.')
+
+
+#
+# class Video_File(BaseData):
+#     def get_file(self, camera_id):
+#         params = {
+#             'channelId': camera_id
+#         }
+#         try:
+#             rec_data = requests.get(url=self.get_file_url, params=params, headers=self.auth_token)
+#             rec_data = rec_data.json()
+#             return rec_data
+#         except requests.exceptions.ConnectTimeout:
+#             return result.server_error(message='链接超时,请重试.')
