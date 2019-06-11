@@ -77,7 +77,7 @@ class RecTree(BaseData):
 
     def rec_tree(self):
         try:
-            print(self.auth_token)
+
             rec_data = requests.get(url=self.dev_tree_url, headers=self.auth_token)
             data = rec_data.json()
             return data

@@ -243,8 +243,11 @@ class PlayBackView(VideoView, View):
                     try:
                         camera_id1 = camera_id
                         rec_data1 = self.get_file(camera_id=camera_id1)
-                        clist = rec_data1['data']['cList']
-                        end_time = rec_data1['data']['cList'][-1]['nEnd']
+                        if rec_data1['message'] != "录像信息为空":
+                            clist = rec_data1['data']['cList']
+                            end_time = rec_data1['data']['cList'][-1]['nEnd']
+                        else:
+                            return JsonResponse(data=rec_data1)
                         # print(rec_data1)
                     except Exception as e:
                         print(e)
@@ -284,12 +287,14 @@ class DownLoadView(DownLoadVideo, View):
             if begin_time == "0":
                 begin_time = int(time.time()) - int(time.time() - time.timezone) % 86400
                 if end_time == "0":
-
                     try:
                         camera_id1 = camera_id
                         rec_data1 = self.get_file(camera_id=camera_id1)
-                        clist= rec_data1['data']['cList']
-                        end_time = rec_data1['data']['cList'][-1]['nEnd']
+                        if rec_data1['message'] != "录像信息为空":
+                            clist = rec_data1['data']['cList']
+                            end_time = rec_data1['data']['cList'][-1]['nEnd']
+                        else:
+                            return JsonResponse(data=rec_data1)
                         # print(rec_data1)
                     except Exception as e:
                         print(e)
