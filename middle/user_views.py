@@ -192,7 +192,7 @@ class DeviceTurnOnOffView(DeviceOpen, DeviceClose, View):
             }
 
             if on_or_off == 1:
-                logger.info('设备开启成功' )
+                logger.info('设备开启成功')
                 # 开启设备
                 rec_data = self.device_open(camera_id=camera_id)
                 if rec_data["code"] != 200 and rec_data["code"] != 1002:
@@ -281,7 +281,8 @@ class PlayBackView(VideoView, View):
                             # end_time = rec_data1['data']['cList'][-1]['nEnd']
                         else:
                             # 当success,以及data有数据时候,查询录像文件的范围
-                            logger.info('设备录像地址正常[data:%s]' % rec_data1['data'])
+                            # logger.info('设备录像地址正常[data:%s]' % rec_data1['data'])
+                            logger.info('录像文件列表%s' % rec_data1['data']['cList'])
                             begin_time = rec_data1['data']['cList'][-1]['nStart']
                             end_time = rec_data1['data']['cList'][-1]['nEnd']
                             rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time, end_time=end_time)
