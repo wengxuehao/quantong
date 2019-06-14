@@ -5,7 +5,7 @@
       <paths name="quantong">
         <serverdata>
           <mappings>
-            <mapping deploy="/root" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/home/cmsuser/quantong" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

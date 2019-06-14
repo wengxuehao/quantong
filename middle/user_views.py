@@ -1,6 +1,6 @@
 # __author__ : htzs
 # __time__   : 19-5-6 下午4:02
-
+import os
 
 from django.http import HttpResponse, JsonResponse
 from django.views.generic.base import View
@@ -11,9 +11,14 @@ import json
 # from utils.vpm import RecTree, UserAuth, LiveView, DeviceOpen, DeviceClose, DeviceStatus, VideoView, DownLoadVideo
 import time
 import datetime
+
+from quantong.settings import BASE_DIR
 from utils import result
 from utils.vpm import UserAuth, RecTree, UserAuth, LiveView, DeviceOpen, DeviceClose, DeviceStatus, VideoView, \
     DownLoadVideo
+import logging
+
+logger = logging.getLogger('django')
 
 
 class AuthTokenView(UserAuth, View):
@@ -22,6 +27,7 @@ class AuthTokenView(UserAuth, View):
     """
 
     def get(self, request):
+
         """
         获取阳光username password,请求token 并返回
         :param request:
@@ -31,20 +37,26 @@ class AuthTokenView(UserAuth, View):
         username = request.GET.get('loginName', '')
         password = request.GET.get('password', '')
         # 调用vpm接口,组合返回数据
-        token = self.token_auth(username, password)
+        try:
+            token = self.token_auth(username, password)
+            if type(token) == str:
+                logger.info('登录验证[成功][username:%s]' % username)
+                # 登陆成功,保存token
+                auth = {
+                    'username': username,
+                    'password': password,
+                    'token': token
+                }
+                cache.clear()
+                cache.set('token', token, 30 * 60)
+                return result.result(message='成功', data=auth)
+            else:
+                return result.result(message='成功', data=token)
+
+        except Exception as e:
+            logger.error('登录验证[异常][message:%s]' % e)
+            return result.un_auth()
         # print(token.json())
-        if type(token) == str:
-            # 登陆成功,保存token
-            auth = {
-                'username': username,
-                'password': password,
-                'token': token
-            }
-            cache.clear()
-            cache.set('token', token, 30 * 60)
-            return result.result(message='成功', data=auth)
-        else:
-            return result.result(message='成功', data=token)
 
 
 def switch_tree_format(rec_data):
@@ -125,11 +137,14 @@ class RecTreeView(RecTree, View):
         try:
             rec_data = self.rec_tree()
             if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                logger.error('获取设备树异常[message:%s]' % rec_data['code'])
                 return JsonResponse(data=rec_data)
             else:
                 quantong_tree = switch_tree_format(rec_data)
+                logger.info('获取设备树成功[message:%s]' % rec_data['code'])
                 return result.result(code=rec_data["code"], message="成功", data=quantong_tree)
         except:
+            logger.warning('获取设备树失败')
             return result.params_error(message='请求错误,请重试...')
 
 
@@ -145,13 +160,19 @@ class DevLiveView(LiveView, View):
         try:
             temp = json.loads(request.body.decode())
             camera_id = temp["cameraId"]
+            # print(camera_id)
             rec_data = self.live_view(camera_id=camera_id)
+
+            # print('直播返回内容: %s' % rec_data)
             if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                logger.error('返回直播地址异常[message:%s]' % rec_data['code'])
                 return JsonResponse(data=rec_data)
             else:
+                logger.info('返回直播地址成功[message:%s]' % rec_data['code'])
                 url = rec_data['data']['address']
                 return result.result(data={'url': url}, message='成功', code=rec_data["code"])
         except:
+            logger.info('返回直播地址失败')
             return result.params_error(message='请求错误,请重试...')
 
 
@@ -171,8 +192,11 @@ class DeviceTurnOnOffView(DeviceOpen, DeviceClose, View):
             }
 
             if on_or_off == 1:
+                logger.info('设备开启成功' )
+                # 开启设备
                 rec_data = self.device_open(camera_id=camera_id)
                 if rec_data["code"] != 200 and rec_data["code"] != 1002:
+                    logger.info('设备开启成功[message:%s]' % rec_data['code'])
                     return_data["cameraProcessResult"] = "2"
                     return_data["errorCode"] = str(rec_data["code"])
                     return_data["errorDesc"] = rec_data["message"]
@@ -182,8 +206,10 @@ class DeviceTurnOnOffView(DeviceOpen, DeviceClose, View):
                     return result.result(code=200, message="成功", data=return_data)
 
             elif on_or_off == 0:
+                # 关闭设备
                 rec_data = self.device_close(camera_id=camera_id)
                 if rec_data["code"] != 200 and rec_data["code"] != 1001:
+                    logger.info('设备关闭成功[message:%s]' % rec_data['code'])
                     return_data["cameraProcessResult"] = "4"
                     return_data["errorCode"] = str(rec_data["code"])
                     return_data["errorDesc"] = rec_data["message"]
@@ -194,6 +220,7 @@ class DeviceTurnOnOffView(DeviceOpen, DeviceClose, View):
             else:
                 raise Exception
         except:
+            logger.warning('开启关闭设备失败')
             return result.params_error(message='请求错误,请重试...')
 
 
@@ -205,9 +232,12 @@ class DeviceStatusView(DeviceStatus, View):
             temp = json.loads(request.body.decode())
             camera_id = temp["cameraId"]
             rec_data = self.device_status(camera_id=camera_id)
+            # print(rec_data)
             if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                logger.error('设备运行状态查询异常[message:%s]' % rec_data['code'])
                 return JsonResponse(data=rec_data)
             else:
+                logger.info('设备运行状态查询成功[message:%s]' % rec_data['code'])
                 return_data = {
                     "cameraId": rec_data["data"]['channelId'],
                     "cameraState": -1
@@ -217,9 +247,9 @@ class DeviceStatusView(DeviceStatus, View):
                     if rec_data["data"]["flow"]:
                         return_data["cameraState"] = 1
                     else:
-                        return_data["cameraState"] = 2
+                        return_data["cameraState"] = 3
                 else:
-                    return_data["cameraState"] = 3
+                    return_data["cameraState"] = 2
 
                 return result.result(code=rec_data["code"], message="成功", data=return_data)
         except:
@@ -243,23 +273,35 @@ class PlayBackView(VideoView, View):
                     try:
                         camera_id1 = camera_id
                         rec_data1 = self.get_file(camera_id=camera_id1)
-                        if rec_data1['message'] != "录像信息为空":
-                            clist = rec_data1['data']['cList']
-                            end_time = rec_data1['data']['cList'][-1]['nEnd']
-                        else:
-                            return JsonResponse(data=rec_data1)
                         # print(rec_data1)
+                        # 获取录像文件信息,查询录像文件在什么范围内有,然后下载和回放才有效
+                        if rec_data1['message'] == "录像信息为空" or rec_data1['data'] == {}:
+                            logger.error('设备录像回放地址查询异常[data:%s]' % rec_data1['data'])
+                            return result.result(message='当前时间段没有录像信息', data={})
+                            # end_time = rec_data1['data']['cList'][-1]['nEnd']
+                        else:
+                            # 当success,以及data有数据时候,查询录像文件的范围
+                            logger.info('设备录像地址正常[data:%s]' % rec_data1['data'])
+                            begin_time = rec_data1['data']['cList'][-1]['nStart']
+                            end_time = rec_data1['data']['cList'][-1]['nEnd']
+                            rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time, end_time=end_time)
+                            return JsonResponse(data=rec_data)
+
                     except Exception as e:
-                        print(e)
+                        logger.warning('设备运行状态查询失败[message:%s]' % e)
+                        return result.result(message='当前时间段没有录像信息', data={})
+                        # print(e)
             if begin_time != 0 and end_time == 0:
                 day = time.localtime(begin_time)
                 end_time = begin_time - (day[-4] + day[-5] * 60 + day[-6] * 3600) + 86400
             rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time, end_time=end_time)
 
             if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                logger.error('设备录像回放地址查询异常[data:%s]' % rec_data['data'])
                 return JsonResponse(data=rec_data)
             else:
                 url = rec_data['data']['address']
+                logger.info('设备录像地址正常[data:%s]' % rec_data['data'])
                 return_data = {
                     "data": {
                         "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)}, {"playbackUrl": url}],
@@ -269,7 +311,9 @@ class PlayBackView(VideoView, View):
                     "isWarning": 0
                 }
                 return result.result(data=return_data, message="成功", code=rec_data["code"])
-        except:
+        except Exception as e:
+            # print(rec_data)
+            logger.warning('设备运行状态查询失败[message:%s]' % e)
             return result.params_error(message='请求错误,请重试...')
 
 
@@ -277,6 +321,7 @@ class DownLoadView(DownLoadVideo, View):
     '''视频下载'''
 
     def post(self, request):
+
         try:
             camera_id = json.loads(request.body.decode().replace("'", "\"")).get('cameraId')
             begin_time = json.loads(request.body.decode().replace("'", "\"")).get('beginTime')
@@ -290,34 +335,52 @@ class DownLoadView(DownLoadVideo, View):
                     try:
                         camera_id1 = camera_id
                         rec_data1 = self.get_file(camera_id=camera_id1)
-                        if rec_data1['message'] != "录像信息为空":
-                            clist = rec_data1['data']['cList']
-                            end_time = rec_data1['data']['cList'][-1]['nEnd']
-                        else:
-                            return JsonResponse(data=rec_data1)
                         # print(rec_data1)
+                        # 获取录像文件信息,查询录像文件在什么范围内有,然后下载和回访才有效
+                        if rec_data1['message'] == "录像信息为空" or rec_data1['data'] == {}:
+                            # print(os.path.join(os.path.dirname(BASE_DIR), "quantong/logs/quantong.log"))
+                            logger.error('设备下载查询异常[data:%s]' % rec_data1['data'])
+                            return result.result(message='在此时间段内无对应的录像文件', data={})
+                            # end_time = rec_data1['data']['cList'][-1]['nEnd']
+                        else:
+                            # 当success,以及data有数据时候,查询录像文件的范围
+                            logger.info('设备下载查询正常[data:%s]' % rec_data1['data'])
+                            begin_time = rec_data1['data']['cList'][-1]['nStart']
+                            end_time = rec_data1['data']['cList'][-1]['nEnd']
+                            rec_data = self.down_load(camera_id=camera_id, begin_time=begin_time, end_time=end_time)
+                            if rec_data["code"] >= 400 or rec_data["code"] < 200 or rec_data[
+                                'message'] == '在此时间段内无对应的录像文件':
+                                return JsonResponse(data=rec_data)
+                            else:
+                                url = rec_data["data"]['address']
+                                return_data = {
+                                    "videoDownloadFormat": url
+                                }
+                                return result.result(data=return_data, message="成功", code=rec_data["code"])
+
                     except Exception as e:
-                        print(e)
-                    rec_data = self.down_load(camera_id, int(begin_time), int(end_time))
-                    if rec_data["code"] >= 400 or rec_data["code"] < 200:
-                        return JsonResponse(data=rec_data)
-                    else:
-                        url = rec_data["data"]['address']
-                        return_data = {
-                            "videoDownloadFormat": url
-                        }
-                        return result.result(data=return_data, message="成功", code=rec_data["code"])
+                        logger.error('设备下载查询异常[message:%s]' % e)
+                        print(os.path.join(os.path.dirname(BASE_DIR), "quantong/logs/quantong.log"))
+                        return result.params_error(message='请求错误,请重试...')
+
+
+
+
             else:
                 day = time.localtime(begin_time)
                 end_time = begin_time - (day[-4] + day[-5] * 60 + day[-6] * 3600) + 86400
                 rec_data = self.down_load(camera_id, int(begin_time), int(end_time))
-                if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                if rec_data["code"] >= 400 or rec_data["code"] < 200 or rec_data['message'] == '在此时间段内无对应的录像文件':
+                    logger.error('设备下载查询异常[data:%s]' % rec_data['data'])
                     return JsonResponse(data=rec_data)
                 else:
+                    logger.info('设备下载查询正常[data:%s]' % rec_data['data'])
+
                     url = rec_data["data"]['address']
                     return_data = {
                         "videoDownloadFormat": url
                     }
                     return result.result(data=return_data, message="成功", code=rec_data["code"])
-        except:
+        except Exception as e:
+            logger.warning('设备下载查询失败[message:%s]' % e)
             return result.params_error(message='请求错误,请重试...')

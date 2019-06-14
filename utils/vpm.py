@@ -104,14 +104,14 @@ class LiveView(BaseData):
         获取直播地址
         :return:
         """
-        data = {
+        params = {
             'channelId': camera_id,
-            'protocol': "RTMP",
+            'protocol': "rtmp",
             "streamType": "0"
         }
         try:
-            rec_data = requests.get(url=self.live_url, params=data, headers=self.auth_token)
-
+            # print(params)
+            rec_data = requests.get(url=self.live_url, params=params, headers=self.auth_token)
             return_data = rec_data.json()
             return return_data
         except requests.exceptions.ConnectTimeout:
