@@ -285,7 +285,19 @@ class PlayBackView(VideoView, View):
                             begin_time = rec_data1['data']['cList'][-1]['nStart']
                             end_time = rec_data1['data']['cList'][-1]['nEnd']
                             rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time, end_time=end_time)
-                            return JsonResponse(data=rec_data)
+                            url = rec_data['data']['address']
+                            logger.info('设备录像地址正常[data:%s]' % rec_data['data'])
+                            return_data = {
+                                "data": {
+                                    "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                             {"playbackUrl": url}],
+                                    "total": 1,
+                                    "totalTimeUrl": url
+                                },
+                                "isWarning": 0
+                            }
+                            return result.result(data=return_data, message="成功", code=rec_data["code"])
+                            # return JsonResponse(data=rec_data)
 
                     except Exception as e:
                         logger.warning('设备运行状态查询失败[message:%s]' % e)

@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6333fcb2-61ab-452f-bbcf-75b4ca7c8402" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/middle/user_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/middle/user_views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quantong/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/quantong/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/vpm.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/vpm.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,28 +21,24 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/manage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/middle/user_views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="349" column="57" selection-start-line="349" selection-start-column="57" selection-end-line="349" selection-end-column="57" />
+            <state relative-caret-position="18">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
               <folding>
-                <element signature="e#49#58#0" expanded="true" />
+                <element signature="e#22#31#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/logs/quantong.log">
+        <entry file="file://$PROJECT_DIR$/middle/user_views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-92" />
+            <state relative-caret-position="439">
+              <caret line="293" column="47" lean-forward="true" selection-start-line="293" selection-start-column="47" selection-end-line="293" selection-end-column="47" />
+              <folding>
+                <element signature="e#49#58#0" expanded="true" />
+              </folding>
+            </state>
           </provider>
         </entry>
       </file>
@@ -333,15 +325,16 @@
       <workItem from="1560303483815" duration="38000" />
       <workItem from="1560303546963" duration="6665000" />
       <workItem from="1560413232711" duration="4737000" />
-      <workItem from="1560477858788" duration="6014000" />
+      <workItem from="1560477858788" duration="9523000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54112000" />
+    <option name="totallyTimeSpent" value="57621000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="0" width="1920" height="1080" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49944258" visible="true" weight="0.17826553" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -349,7 +342,7 @@
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.30085653" />
-      <window_info anchor="bottom" id="Version Control" order="3" />
+      <window_info anchor="bottom" id="Version Control" order="3" weight="0.32976446" />
       <window_info anchor="bottom" id="Python Console" order="4" />
       <window_info anchor="bottom" id="Terminal" order="5" visible="true" weight="0.33190578" />
       <window_info anchor="bottom" id="Event Log" order="6" side_tool="true" />
@@ -369,6 +362,32 @@
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.log" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/quantong$test_word.coverage" NAME="test_word Coverage Results" MODIFIED="1560248548909" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -428,13 +447,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/heros.py" />
     <entry file="file://$PROJECT_DIR$/test_word.py" />
-    <entry file="file://$PROJECT_DIR$/manage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/vpm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1692">
@@ -476,19 +488,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/middle/user_views.py">
+    <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="349" column="57" selection-start-line="349" selection-start-column="57" selection-end-line="349" selection-end-column="57" />
+        <state relative-caret-position="18">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
           <folding>
-            <element signature="e#49#58#0" expanded="true" />
+            <element signature="e#22#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/logs/quantong.log">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-92" />
+        <state relative-caret-position="-416" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middle/user_views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="293" column="47" lean-forward="true" selection-start-line="293" selection-start-column="47" selection-end-line="293" selection-end-column="47" />
+          <folding>
+            <element signature="e#49#58#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>
