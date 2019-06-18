@@ -226,7 +226,7 @@ class DeviceTurnOnOffView(DeviceOpen, DeviceClose, View):
 
 class DeviceStatusView(DeviceStatus, View):
     '''查询运行状态'''
-
+    # 调用的是vpm的查询通道信息的接口!!!!!!!
     def post(self, request):
         try:
             temp = json.loads(request.body.decode())
@@ -234,10 +234,12 @@ class DeviceStatusView(DeviceStatus, View):
             rec_data = self.device_status(camera_id=camera_id)
             # print(rec_data)
             if rec_data["code"] >= 400 or rec_data["code"] < 200:
-                logger.error('设备运行状态查询异常[message:%s]' % rec_data['code'])
+                logger.error('设备运行状态查询异常[status:%s]' % rec_data['code'])
+                logger.info('摄像头状态数据%s' % rec_data)
                 return JsonResponse(data=rec_data)
             else:
-                logger.info('设备运行状态查询成功[message:%s]' % rec_data['code'])
+                logger.info('设备运行状态查询成功[status:%s]' % rec_data['code'])
+                # logger.info('摄像头状态数据%s' % rec_data)
                 return_data = {
                     "cameraId": rec_data["data"]['channelId'],
                     "cameraState": -1
@@ -252,7 +254,8 @@ class DeviceStatusView(DeviceStatus, View):
                     return_data["cameraState"] = 2
 
                 return result.result(code=rec_data["code"], message="成功", data=return_data)
-        except:
+        except Exception as e:
+            logger.warning('设备运行状态查询失败[reason:%s]'%e)
             return result.params_error(message='请求错误,请重试...')
 
 
@@ -273,7 +276,7 @@ class PlayBackView(VideoView, View):
                     try:
                         camera_id1 = camera_id
                         rec_data1 = self.get_file(camera_id=camera_id1)
-                        # print(rec_data1)
+                        print(rec_data1)
                         # 获取录像文件信息,查询录像文件在什么范围内有,然后下载和回放才有效
                         if rec_data1['message'] == "录像信息为空" or rec_data1['data'] == {}:
                             logger.error('设备录像回放地址查询异常[data:%s]' % rec_data1['data'])
@@ -348,7 +351,7 @@ class DownLoadView(DownLoadVideo, View):
                     try:
                         camera_id1 = camera_id
                         rec_data1 = self.get_file(camera_id=camera_id1)
-                        # print(rec_data1)
+                        print(rec_data1)
                         # 获取录像文件信息,查询录像文件在什么范围内有,然后下载和回访才有效
                         if rec_data1['message'] == "录像信息为空" or rec_data1['data'] == {}:
                             # print(os.path.join(os.path.dirname(BASE_DIR), "quantong/logs/quantong.log"))
@@ -372,7 +375,7 @@ class DownLoadView(DownLoadVideo, View):
                                 return result.result(data=return_data, message="成功", code=rec_data["code"])
 
                     except Exception as e:
-                        logger.error('设备下载查询异常[message:%s]' % e)
+                        logger.warning('设备下载查询失败[reason:%s]' % e)
                         print(os.path.join(os.path.dirname(BASE_DIR), "quantong/logs/quantong.log"))
                         return result.params_error(message='请求错误,请重试...')
 
