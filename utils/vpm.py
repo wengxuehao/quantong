@@ -105,7 +105,7 @@ class LiveView(BaseData):
         :return:
         """
         params = {
-            'channelId': camera_id,
+            'channelId': '{'+camera_id+'}',
             'protocol': "rtmp",
             "streamType": "0"
         }
@@ -134,13 +134,14 @@ class DeviceOpen(BaseData):
         super().__init__()
 
     def device_open(self, camera_id):
+        print(camera_id)
         data = {
-            "channelId": camera_id,
+            "channelId": '{'+camera_id+'}',
             "type": 0
         }
         data = str(data).replace("'", "\"")
         try:
-            rec_data = requests.put(url=self.open_url + "/" + camera_id, data=data, headers=self.auth_token)
+            rec_data = requests.put(url=self.open_url + "/" + '{'+camera_id+'}', data=data, headers=self.auth_token)
 
             rec_data = rec_data.json()
             return rec_data
@@ -153,12 +154,12 @@ class DeviceOpen(BaseData):
 class DeviceClose(BaseData):
     def device_close(self, camera_id):
         data = {
-            "channelId": camera_id,
+            "channelId": '{'+camera_id+'}',
             "type": 1
         }
         data = str(data).replace("'", "\"")
         try:
-            rec_data = requests.put(url=self.close_url + "/" + camera_id, data=data, headers=self.auth_token)
+            rec_data = requests.put(url=self.close_url + "/" + '{'+camera_id+'}', data=data, headers=self.auth_token)
 
             rec_data = rec_data.json()
             return rec_data
@@ -171,7 +172,7 @@ class DeviceClose(BaseData):
 class DeviceStatus(BaseData):
     def device_status(self, camera_id):
         data = {
-            "channelId": camera_id
+            "channelId": '{'+camera_id+'}'
         }
         try:
             rec_data = requests.get(url=self.device_status_url, params=data, headers=self.auth_token)
@@ -191,7 +192,7 @@ class VideoView(BaseData):
 
     def video_view(self, camera_id, begin_time, end_time):
         params = {
-            "channelId": camera_id,
+            "channelId": '{'+camera_id+'}',
             "startTime": begin_time,
             "endTime": end_time
         }
@@ -207,7 +208,7 @@ class VideoView(BaseData):
 
     def get_file(self, camera_id):
         params = {
-            'channelId': camera_id
+            'channelId': '{'+camera_id+'}'
         }
         try:
             rec_data = requests.get(url=self.get_file_url, params=params, headers=self.auth_token)
@@ -219,8 +220,9 @@ class VideoView(BaseData):
 
 class DownLoadVideo(BaseData):
     def down_load(self, camera_id, begin_time, end_time):
+        # print(camera_id)
         params = {
-            "channelId": camera_id,
+            "channelId": '{'+camera_id+'}',
             "startTime": begin_time,
             "endTime": end_time
         }
@@ -236,7 +238,7 @@ class DownLoadVideo(BaseData):
 
     def get_file(self, camera_id):
         params = {
-            'channelId': camera_id
+            'channelId': '{'+camera_id+'}'
         }
         try:
             rec_data = requests.get(url=self.get_file_url, params=params, headers=self.auth_token)
