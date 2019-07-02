@@ -163,8 +163,7 @@ LOGGING = {
 }
 
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR,'static/')
 # vpm接口配置
 
 JSON_RESULT = {"Content-Type": "application/json;charset=UTF-8"}

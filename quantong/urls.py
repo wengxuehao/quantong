@@ -20,6 +20,6 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('middle/', include('middle.urls')),
-    path(r'', TemplateView.as_view(template_name="index.html")),  ## 这里将url的根路径指向vue中的index页面
+    path(r'', TemplateView.as_view(template_name="index.html")),  # 这里将url的根路径指向vue中的index页面
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

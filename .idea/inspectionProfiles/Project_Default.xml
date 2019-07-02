@@ -4,7 +4,7 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="137">
+          <list size="147">
             <item index="0" class="java.lang.String" itemvalue="django-gulp" />
             <item index="1" class="java.lang.String" itemvalue="Babel" />
             <item index="2" class="java.lang.String" itemvalue="pickleshare" />
@@ -142,6 +142,16 @@
             <item index="134" class="java.lang.String" itemvalue="pyparsing" />
             <item index="135" class="java.lang.String" itemvalue="Flask" />
             <item index="136" class="java.lang.String" itemvalue="idna" />
+            <item index="137" class="java.lang.String" itemvalue="blinker" />
+            <item index="138" class="java.lang.String" itemvalue="prettytable" />
+            <item index="139" class="java.lang.String" itemvalue="PyJWT" />
+            <item index="140" class="java.lang.String" itemvalue="oauthlib" />
+            <item index="141" class="java.lang.String" itemvalue="cryptography" />
+            <item index="142" class="java.lang.String" itemvalue="jsonpointer" />
+            <item index="143" class="java.lang.String" itemvalue="pyserial" />
+            <item index="144" class="java.lang.String" itemvalue="pyasn1" />
+            <item index="145" class="java.lang.String" itemvalue="python3-memcached" />
+            <item index="146" class="java.lang.String" itemvalue="jsonpatch" />
           </list>
         </value>
       </option>
