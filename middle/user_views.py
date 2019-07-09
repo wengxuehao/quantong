@@ -1,5 +1,4 @@
-# __author__ : htzs
-# __time__   : 19-5-6 下午4:02
+#  _*_ coding:utf-8 _*_
 import os
 
 from django.http import HttpResponse, JsonResponse
@@ -32,31 +31,34 @@ class AuthTokenView(UserAuth, View):
         获取阳光username password,请求token 并返回
         :param request:
         :return:
-        响应码 (200:成功； 401:用户名或密码错误； 403:用户失效或禁用)
+        响应码 (200:success； 401:用户名或密码错误； 403:用户失效或禁用)
         """
-        username = request.GET.get('loginName', '')
-        password = request.GET.get('password', '')
-        # 调用vpm接口,组合返回数据
         try:
-            token = self.token_auth(username, password)
-            if type(token) == str:
-                logger.info('登录验证[成功][username:%s]' % username)
-                # 登陆成功,保存token
-                auth = {
-                    'username': username,
-                    'password': password,
-                    'token': token
-                }
-                cache.clear()
-                cache.set('token', token, 30 * 60)
-                return result.result(message='成功', data=auth)
-            else:
-                return result.result(message='成功', data=token)
+            username = request.GET.get('loginName', '')
+            password = request.GET.get('password', '')
+            # 调用vpm接口,组合返回数据
+            try:
+                token = self.token_auth(username, password)
+                if type(token) == str:
+                    logger.info('login_verify[success][username:%s]' % username)
+                    # 登陆success,保存token
+                    auth = {
+                        'username': username,
+                        'password': password,
+                        'token': token
+                    }
+                    cache.clear()
+                    cache.set('token', token, 30 * 60)
+                    return result.result(message='success', data=auth)
+                else:
+                    return result.result(message='success', data=token)
 
-        except Exception as e:
-            logger.error('登录验证[异常][message:%s]' % e)
-            return result.un_auth()
-        # print(token.json())
+            except Exception as e:
+                logger.error('login_verify[error][message:%s]' % e)
+                return result.un_auth()
+            # print(token.json())
+        except:
+            return result.result(message='请提交信息')
 
 
 def switch_tree_format(rec_data):
@@ -137,14 +139,14 @@ class RecTreeView(RecTree, View):
         try:
             rec_data = self.rec_tree()
             if rec_data["code"] >= 400 or rec_data["code"] < 200:
-                logger.error('获取设备树异常[message:%s]' % rec_data['code'])
+                logger.error('get_device_tree-error[message:%s]' % rec_data['code'])
                 return JsonResponse(data=rec_data)
             else:
                 quantong_tree = switch_tree_format(rec_data)
-                logger.info('获取设备树成功[message:%s]' % rec_data['code'])
-                return result.result(code=rec_data["code"], message="成功", data=quantong_tree)
+                logger.info('get_device_tree-success[message:%s]' % rec_data['code'])
+                return result.result(code=rec_data["code"], message="success", data=quantong_tree)
         except:
-            logger.warning('获取设备树失败')
+            logger.warning('get_device_tree-warning')
             return result.params_error(message='请求错误,请重试...')
 
 
@@ -162,15 +164,15 @@ class DevLiveView(LiveView, View):
             camera_id = temp["cameraId"]
             rec_data = self.live_view(camera_id=camera_id)
             if rec_data["code"] >= 400 or rec_data["code"] < 200:
-                logger.error('返回直播地址异常[message:%s]' % rec_data['code'])
+                logger.error('return_live_address-error[message:%s]' % rec_data['code'])
                 return JsonResponse(data=rec_data)
             else:
-                logger.info('返回直播地址成功[message:%s]' % rec_data['code'])
+                logger.info('return_live_address-success[message:%s]' % rec_data['code'])
                 url = rec_data['data']['address']
-                return result.result(data={'url': url}, message='成功', code=rec_data["code"])
+                return result.result(data={'url': url}, message='success', code=rec_data["code"])
 
         except:
-            logger.info('返回直播地址失败')
+            logger.info('return_live_address-warning')
             return result.params_error(message='请求错误,请重试...请校验token')
 
 
@@ -194,7 +196,7 @@ class DeviceTurnOnOffView(DeviceOpen, DeviceClose, View):
                     rec_data = self.device_open(camera_id=camera_id)
                     # print(rec_data)
                     if rec_data["code"] != 200 and rec_data["code"] != 1002:
-                        logger.warning('设备开启失败[message:%s]' % rec_data['message'])
+                        logger.warning('device_open_fail-[message:%s]' % rec_data['message'])
                         return_data["cameraProcessResult"] = "2"
                         return_data["errorCode"] = str(rec_data["code"])
                         return_data["errorDesc"] = rec_data["message"]
@@ -203,14 +205,14 @@ class DeviceTurnOnOffView(DeviceOpen, DeviceClose, View):
                     #     print(111111)
                     #     return result.result(code=rec_data["status"], message=rec_data['message'], data=return_data)
                     elif rec_data['code'] == 1002:
-                        logger.warning('设备开启失败[message:%s]' % rec_data['message'])
+                        logger.warning('device_open_fail-[message:%s]' % rec_data['message'])
                         return result.result(code=rec_data['code'], message='失败', data=rec_data)
                     else:
-                        logger.info('设备开启成功[message:%s]' % rec_data['code'])
+                        logger.info('device_open-success[message:%s]' % rec_data['code'])
                         return_data["cameraProcessResult"] = "1"
-                        return result.result(code=200, message="成功", data=return_data)
+                        return result.result(code=200, message="success", data=return_data)
                 except:
-                    logger.warning('设备开启失败[message:%s]' % rec_data['message'])
+                    logger.warning('device_open_fail-[message:%s]' % rec_data['message'])
                     return_data["cameraProcessResult"] = "2"
                     return_data["errorCode"] = str(rec_data["code"])
                     return_data["errorDesc"] = rec_data["message"]
@@ -222,7 +224,7 @@ class DeviceTurnOnOffView(DeviceOpen, DeviceClose, View):
                     rec_data = self.device_close(camera_id=camera_id)
                     # print(rec_data)
                     if rec_data["code"] != 200 and rec_data["code"] != 1001:
-                        logger.warning('设备关闭失败[message:%s]' % rec_data['message'])
+                        logger.warning('device_close_fail[message:%s]' % rec_data['message'])
                         return_data["cameraProcessResult"] = "4"
                         return_data["errorCode"] = str(rec_data["code"])
                         return_data["errorDesc"] = rec_data["message"]
@@ -230,14 +232,14 @@ class DeviceTurnOnOffView(DeviceOpen, DeviceClose, View):
                     # elif rec_data['status'] == 400:
                     #     return result.result(code=rec_data["status"], message=rec_data['message'], data='')
                     elif rec_data['code'] == 1001:
-                        logger.warning('设备关闭失败[message:%s]' % rec_data['message'])
+                        logger.warning('device_close_fail[message:%s]' % rec_data['message'])
                         return result.result(code=rec_data['code'], message='失败', data=rec_data)
                     else:
-                        logger.info('设备关闭成功[message:%s]' % rec_data['code'])
+                        logger.info('device_close-success[message:%s]' % rec_data['code'])
                         return_data["cameraProcessResult"] = "3"
-                        return result.result(code=200, message="成功", data=return_data)
+                        return result.result(code=200, message="success", data=return_data)
                 except:
-                    logger.warning('设备关闭失败[message:%s]' % rec_data['message'])
+                    logger.warning('device_close_fail[message:%s]' % rec_data['message'])
                     return_data["cameraProcessResult"] = "4"
                     return_data["errorCode"] = str(rec_data["code"])
                     return_data["errorDesc"] = rec_data["message"]
@@ -245,7 +247,7 @@ class DeviceTurnOnOffView(DeviceOpen, DeviceClose, View):
             else:
                 return result.result(code=200, message="请传递正确参数", data='')
         except:
-            logger.warning('开启关闭设备失败')
+            logger.warning('device_closewarning')
             # print(rec_data)
             return result.params_error(message='请求错误,请重试...请校验token是否过期')
 
@@ -261,11 +263,11 @@ class DeviceStatusView(DeviceStatus, View):
             rec_data = self.device_status(camera_id=camera_id)
             # print(rec_data)
             if rec_data["code"] >= 400 or rec_data["code"] < 200:
-                logger.error('设备运行状态查询异常[status:%s]' % rec_data['code'])
+                logger.error('get_device_statuserror[status:%s]' % rec_data['code'])
                 # logger.info('摄像头状态数据%s' % rec_data)
                 return JsonResponse(data=rec_data)
             else:
-                logger.info('设备运行状态查询成功[status:%s]' % rec_data['code'])
+                logger.info('get_device_statussuccess[status:%s]' % rec_data['code'])
                 # logger.info('摄像头状态数据%s' % rec_data)
                 return_data = {
                     "cameraId": rec_data["data"]['channelId'],
@@ -284,9 +286,9 @@ class DeviceStatusView(DeviceStatus, View):
                     # 通电未使用
                     return_data["cameraState"] = 2
 
-                return result.result(code=rec_data["code"], message="成功", data=return_data)
+                return result.result(code=rec_data["code"], message="success", data=return_data)
         except Exception as e:
-            logger.warning('设备运行状态查询失败[reason:%s]' % e)
+            logger.warning('get_device_status_fail[reason:%s]' % e)
             return result.params_error(message='请求错误,请重试...')
 
 
@@ -307,22 +309,22 @@ class PlayBackView(VideoView, View):
                     try:
                         camera_id1 = camera_id
                         rec_data1 = self.get_file(camera_id=camera_id1)
-                        # print(rec_data1)
+                        print(rec_data1)
                         # 获取录像文件信息,查询录像文件在什么范围内有,然后下载和回放才有效
                         if rec_data1['message'] == "录像信息为空" or rec_data1['data'] == {} or rec_data1['data'] == '':
-                            logger.error('设备录像回放地址查询异常[data:%s]' % rec_data1['data'])
-                            return result.result(code=rec_data1['code'], data=rec_data1, message='查询录像失败')
+                            logger.error('get_device_video_error[data:%s]' % rec_data1['data'])
+                            return result.result(code=rec_data1['code'], data=rec_data1, message='查询录像error请校验录像文件信息')
                             # end_time = rec_data1['data']['cList'][-1]['nEnd']
                         else:
                             # 当success,以及data有数据时候,查询录像文件的范围
-                            # logger.info('设备录像地址正常[data:%s]' % rec_data1['data'])
-                            logger.info('录像文件列表%s' % rec_data1['data']['cList'])
+                            # logger.info('get_device_video[data:%s]' % rec_data1['data'])
+                            logger.info('video_list:%s' % rec_data1['data']['cList'])
                             begin_time = rec_data1['data']['cList'][-1]['nStart']
                             end_time = rec_data1['data']['cList'][-1]['nEnd']
                             rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time, end_time=end_time)
-                            logger.error('录像生成情况:%s' % rec_data['message'])
+                            logger.error('video_list_message:%s' % rec_data['message'])
                             url = rec_data['data']['address']
-                            logger.info('设备录像地址正常[data:%s]' % rec_data['data'])
+                            logger.info('get_device_video[data:%s]' % rec_data['data'])
                             return_data = {
                                 "data": {
                                     "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
@@ -332,11 +334,11 @@ class PlayBackView(VideoView, View):
                                 },
                                 "isWarning": 0
                             }
-                            return result.result(data=return_data, message="成功", code=rec_data["code"])
+                            return result.result(data=return_data, message="success", code=rec_data["code"])
                             # return JsonResponse(data=rec_data)
 
                     except Exception as e:
-                        logger.warning('设备运行状态查询失败[message:%s]' % e)
+                        logger.warning('get_device_status_fail[message:%s]' % e)
                         return result.result(message='当前时间段没有录像信息或者录像文件生成失败', data={})
                         # print(e)
             if begin_time != 0 and end_time == 0:
@@ -345,11 +347,11 @@ class PlayBackView(VideoView, View):
             rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time, end_time=end_time)
 
             if rec_data["code"] >= 400 or rec_data["code"] < 200:
-                logger.error('设备录像回放地址查询异常[data:%s]' % rec_data['data'])
+                logger.error('get_device_video_error[data:%s]' % rec_data['data'])
                 return JsonResponse(data=rec_data)
             else:
                 url = rec_data['data']['address']
-                logger.info('设备录像地址正常[data:%s]' % rec_data['data'])
+                logger.info('get_device_video[data:%s]' % rec_data['data'])
                 return_data = {
                     "data": {
                         "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)}, {"playbackUrl": url}],
@@ -358,10 +360,10 @@ class PlayBackView(VideoView, View):
                     },
                     "isWarning": 0
                 }
-                return result.result(data=return_data, message="成功", code=rec_data["code"])
+                return result.result(data=return_data, message="success", code=rec_data["code"])
         except Exception as e:
             # print(rec_data)
-            logger.warning('设备运行状态查询失败[message:%s]' % e)
+            logger.warning('get_device_status_fail[message:%s]' % e)
             return result.params_error(message='请求错误,请重试...')
 
 
@@ -388,14 +390,13 @@ class DownLoadView(DownLoadVideo, View):
                         # print(rec_data1)
                         # 获取录像文件信息,查询录像文件在什么范围内有,然后下载和回访才有效
                         if rec_data1['message'] == "录像信息为空" or rec_data1['data'] == {} or rec_data1['data'] == '':
-                            # print(os.path.join(os.path.dirname(BASE_DIR), "quantong/logs/quantong.log"))
-                            logger.error('设备下载查询异常[data:%s]' % rec_data1['data'])
-                            return result.result(data=rec_data1['data'], message=rec_data1['message'],
+                            logger.error('device_download_error[data:%s]' % rec_data1['data'])
+                            return result.result(data=rec_data1['data'], message='设备下载文件error',
                                                  code=rec_data1['code'])
                             # end_time = rec_data1['data']['cList'][-1]['nEnd']
                         else:
                             # 当success,以及data有数据时候,查询录像文件的范围
-                            logger.info('设备下载查询正常[data:%s]' % rec_data1['data'])
+                            logger.info('device_download_normal[data:%s]' % rec_data1['data'])
                             begin_time = rec_data1['data']['cList'][-1]['nStart']
                             end_time = rec_data1['data']['cList'][-1]['nEnd']
                             rec_data = self.down_load(camera_id=camera_id, begin_time=begin_time, end_time=end_time)
@@ -408,10 +409,10 @@ class DownLoadView(DownLoadVideo, View):
                                 return_data = {
                                     "videoDownloadFormat": url
                                 }
-                                return result.result(data=return_data, message="成功", code=rec_data["code"])
+                                return result.result(data=return_data, message="success", code=rec_data["code"])
 
                     except Exception as e:
-                        logger.warning('设备下载查询失败[reason:%s]' % e)
+                        logger.warning('device_download_fail[reason:%s]' % e)
                         # print(os.path.join(os.path.dirname(BASE_DIR), "quantong/logs/quantong.log"))
                         return result.params_error(message='请求错误,请重试...')
 
@@ -423,16 +424,16 @@ class DownLoadView(DownLoadVideo, View):
                 rec_data = self.down_load(camera_id, int(begin_time), int(end_time))
                 print(rec_data)
                 if rec_data["code"] >= 400 or rec_data["code"] < 200 or rec_data['message'] == '在此时间段内无对应的录像文件':
-                    logger.error('设备下载查询异常[data:%s]' % rec_data['data'])
+                    logger.error('device_download_error[data:%s]' % rec_data['data'])
                     return JsonResponse(data=rec_data)
                 else:
-                    logger.info('设备下载查询正常[data:%s]' % rec_data['data'])
+                    logger.info('device_download_normal[data:%s]' % rec_data['data'])
 
                     url = rec_data["data"]['address']
                     return_data = {
                         "videoDownloadFormat": url
                     }
-                    return result.result(data=return_data, message="成功", code=rec_data["code"])
+                    return result.result(data=return_data, message="success", code=rec_data["code"])
         except Exception as e:
-            logger.warning('设备下载查询失败[message:%s]' % e)
+            logger.warning('device_download_fail[message:%s]' % e)
             return result.params_error(message='请求错误,请重试...')
