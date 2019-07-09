@@ -16,10 +16,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/vpm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-198">
+            <state relative-caret-position="-468">
               <caret line="144" selection-start-line="144" selection-end-line="144" />
               <folding>
                 <element signature="e#35#49#0" expanded="true" />
@@ -31,11 +31,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/manage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
+            <state relative-caret-position="244">
               <caret line="15" selection-start-line="15" selection-end-line="15" />
               <folding>
                 <element signature="e#22#31#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/middle/user_views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1602">
+              <caret line="74" column="36" selection-start-line="74" selection-start-column="36" selection-end-line="74" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -78,7 +87,6 @@
         <option value="$PROJECT_DIR$/baidu.html" />
         <option value="$PROJECT_DIR$/static/templates/index.html" />
         <option value="$PROJECT_DIR$/middle/user_views.py" />
-        <option value="$PROJECT_DIR$/nginx.conf" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/test.html" />
         <option value="$PROJECT_DIR$/quantong/wsgi.py" />
@@ -86,10 +94,11 @@
         <option value="$PROJECT_DIR$/uwsgi.ini" />
         <option value="$PROJECT_DIR$/quantong/settings.py" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/nginx.conf" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-9" />
     <option name="y" value="-9" />
     <option name="width" value="1938" />
@@ -109,11 +118,6 @@
               <item name="quantong" type="b2602c69:ProjectViewProjectNode" />
               <item name="quantong" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="quantong" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quantong" type="462c0819:PsiDirectoryNode" />
-              <item name="quantong" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -131,12 +135,13 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/middle" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\SihuaTech\Project\quantong\middle" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/middle" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -332,7 +337,7 @@
       <workItem from="1561519224572" duration="3774000" />
       <workItem from="1561945329450" duration="23053000" />
       <workItem from="1562032048961" duration="1277000" />
-      <workItem from="1562642496930" duration="681000" />
+      <workItem from="1562642496930" duration="2530000" />
     </task>
     <servers />
   </component>
@@ -369,12 +374,13 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="156261000" />
+    <option name="totallyTimeSpent" value="158110000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="848" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49785867" visible="true" weight="0.269437" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49785867" visible="true" weight="0.269437" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50214136" side_tool="true" weight="0.20663811" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
@@ -382,7 +388,7 @@
       <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946466" visible="true" weight="0.369379" />
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.32976446" />
       <window_info anchor="bottom" id="Python Console" order="4" weight="0.32976446" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="5" sideWeight="0.49946466" visible="true" weight="0.43435755" />
+      <window_info anchor="bottom" id="Terminal" order="5" sideWeight="0.49946466" visible="true" weight="0.43435755" />
       <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.5005353" side_tool="true" weight="0.369379" />
       <window_info anchor="bottom" id="Message" order="7" />
       <window_info anchor="bottom" id="Find" order="8" />
@@ -403,6 +409,7 @@
     <option name="version" value="1" />
   </component>
   <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.conf" />
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.log" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -530,13 +537,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nginx.conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="36" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/logs/error.log" />
     <entry file="file://$PROJECT_DIR$/logs/access.log" />
     <entry file="file://$PROJECT_DIR$/quantong/wsgi.py">
@@ -585,16 +585,6 @@
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/manage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="e#22#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -622,26 +612,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/middle/user_views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="74" column="36" selection-start-line="74" selection-start-column="36" selection-end-line="74" selection-end-column="36" />
-          <folding>
-            <element signature="e#49#58#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/middle/views.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/vpm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-198">
+        <state relative-caret-position="-468">
           <caret line="144" selection-start-line="144" selection-end-line="144" />
           <folding>
             <element signature="e#35#49#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="e#22#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nginx.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="43" column="6" lean-forward="true" selection-start-line="43" selection-start-column="6" selection-end-line="43" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middle/user_views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1602">
+          <caret line="74" column="36" selection-start-line="74" selection-start-column="36" selection-end-line="74" selection-end-column="36" />
         </state>
       </provider>
     </entry>
