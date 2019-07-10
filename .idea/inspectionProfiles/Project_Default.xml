@@ -4,7 +4,7 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="148">
+          <list size="149">
             <item index="0" class="java.lang.String" itemvalue="django-gulp" />
             <item index="1" class="java.lang.String" itemvalue="Babel" />
             <item index="2" class="java.lang.String" itemvalue="pickleshare" />
@@ -153,6 +153,7 @@
             <item index="145" class="java.lang.String" itemvalue="python3-memcached" />
             <item index="146" class="java.lang.String" itemvalue="jsonpatch" />
             <item index="147" class="java.lang.String" itemvalue="configobj" />
+            <item index="148" class="java.lang.String" itemvalue="httpie" />
           </list>
         </value>
       </option>
