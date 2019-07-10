@@ -300,29 +300,32 @@ class PlayBackView(VideoView, View):
             camera_id = json.loads(request.body.decode().replace("'", "\"")).get('cameraId')
             begin_time = json.loads(request.body.decode().replace("'", "\"")).get('beginTime')
             end_time = json.loads(request.body.decode().replace("'", "\"")).get('endTime')
-            begin_time = int(begin_time)
-            end_time = int(end_time)
-            if begin_time == 0:
-                begin_time = int(time.time()) - int(time.time() - time.timezone) % 86400
-                # print(begin_time)
-                if end_time == 0:
-                    try:
-                        camera_id1 = camera_id
-                        rec_data1 = self.get_file(camera_id=camera_id1)
-                        print(rec_data1)
-                        # 获取录像文件信息,查询录像文件在什么范围内有,然后下载和回放才有效
-                        if rec_data1['message'] == "录像信息为空" or rec_data1['data'] == {} or rec_data1['data'] == '':
-                            logger.error('get_device_video_error[data:%s]' % rec_data1['data'])
-                            return result.result(code=rec_data1['code'], data=rec_data1, message='查询录像error请校验录像文件信息')
-                            # end_time = rec_data1['data']['cList'][-1]['nEnd']
-                        else:
-                            # 当success,以及data有数据时候,查询录像文件的范围
-                            # logger.info('get_device_video[data:%s]' % rec_data1['data'])
-                            logger.info('video_list:%s' % rec_data1['data']['cList'])
-                            begin_time = rec_data1['data']['cList'][-1]['nStart']
-                            end_time = rec_data1['data']['cList'][-1]['nEnd']
-                            rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time, end_time=end_time)
+            begin_time_sub = int(begin_time)
+            end_time_sub = int(end_time)
+            if begin_time_sub == 0 and end_time_sub == 0:
+                # 当传递都为0时候，则为当天的零点到明天零点
+                begin_time_zero = int(time.time()) - int(time.time() - time.timezone) % 86400
+                end_time_zero = begin_time_zero + 86400
+                try:
+                    camera_id1 = camera_id
+                    rec_data1 = self.get_file(camera_id=camera_id1)
+                    # print(rec_data1)
+                    # 获取录像文件信息,查询录像文件在什么范围内有,然后下载和回放才有效
+                    if rec_data1['message'] == "录像信息为空" or rec_data1['data'] == {} or rec_data1['data'] == '':
+                        logger.error('get_device_video_error[data:%s]' % rec_data1['data'])
+                        return result.result(code=rec_data1['code'], data=rec_data1, message='查询录像error请校验录像文件信息')
+                    else:
+                        # 当success,以及data有数据时候,查询录像文件的范围
+                        # logger.info('get_device_video[data:%s]' % rec_data1['data'])
+                        logger.info('video_list:%s' % rec_data1['data']['cList'])
+                        rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time_zero,
+                                                   end_time=end_time_zero)
+                        # print(rec_data)
+                        if rec_data['data'] == '' or rec_data['message'] == '在此时间段内无对应的录像文件':
                             logger.error('video_list_message:%s' % rec_data['message'])
+                            return result.result(code=rec_data['code'], data=rec_data1['data']['cList'],
+                                                 message=rec_data['message'])
+                        else:
                             url = rec_data['data']['address']
                             logger.info('get_device_video[data:%s]' % rec_data['data'])
                             return_data = {
@@ -335,21 +338,65 @@ class PlayBackView(VideoView, View):
                                 "isWarning": 0
                             }
                             return result.result(data=return_data, message="success", code=rec_data["code"])
-                            # return JsonResponse(data=rec_data)
+                        # return JsonResponse(data=rec_data)
+                except Exception as e:
+                    logger.warning('get_device_status_fail[message:%s]' % e)
+                    return result.result(message='当前时间段没有录像信息或者录像文件生成失败', data={})
+                    # print(e)
+            elif begin_time_sub != 0 and end_time_sub == 0:
+                camera_id1 = camera_id
+                rec_data1 = self.get_file(camera_id=camera_id1)
+                # 开始时间是提供来的，结束时间是明天零点
+                begin_time_zero = int(time.time()) - int(time.time() - time.timezone) % 86400
+                end_time_zero = begin_time_zero + 86400
+                rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time_sub, end_time=end_time_zero)
+                if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                    logger.error('get_device_video_error[data:%s]' % rec_data['data'])
+                    return result.result(code=rec_data['code'], data=rec_data1['data']['cList'],
+                                        message=rec_data['message'])
+                else:
+                    url = rec_data['data']['address']
+                    logger.info('get_device_video[data:%s]' % rec_data['data'])
+                    return_data = {
+                        "data": {
+                            "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)}, {"playbackUrl": url}],
+                            "total": 1,
+                            "totalTimeUrl": url
+                        },
+                        "isWarning": 0
+                    }
+                    return result.result(data=return_data, message="success", code=rec_data["code"])
+            elif begin_time_sub == 0 and end_time_sub != 0:
 
-                    except Exception as e:
-                        logger.warning('get_device_status_fail[message:%s]' % e)
-                        return result.result(message='当前时间段没有录像信息或者录像文件生成失败', data={})
-                        # print(e)
-            if begin_time != 0 and end_time == 0:
-                day = time.localtime(begin_time)
-                end_time = begin_time - (day[-4] + day[-5] * 60 + day[-6] * 3600) + 86400
-            rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time, end_time=end_time)
-
-            if rec_data["code"] >= 400 or rec_data["code"] < 200:
-                logger.error('get_device_video_error[data:%s]' % rec_data['data'])
-                return JsonResponse(data=rec_data)
+                camera_id1 = camera_id
+                rec_data1 = self.get_file(camera_id=camera_id1)
+                # print(rec_data1)
+                # 当提交来的开始时间是当天零点，结束时间是提交来的
+                begin_time_zero = int(time.time()) - int(time.time() - time.timezone) % 86400
+                rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time_zero, end_time=end_time_sub)
+                print(rec_data)
+                if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                    logger.error('get_device_video_error[data:%s]' % rec_data['data'])
+                    return result.result(code=rec_data['code'],data=rec_data1['data']['cList'],
+                                        message=rec_data['message'])
+                else:
+                    url = rec_data['data']['address']
+                    logger.info('get_device_video[data:%s]' % rec_data['data'])
+                    return_data = {
+                        "data": {
+                            "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)}, {"playbackUrl": url}],
+                            "total": 1,
+                            "totalTimeUrl": url
+                        },
+                        "isWarning": 0
+                    }
+                    return result.result(data=return_data, message="success", code=rec_data["code"])
             else:
+                # 当传递的时间在可用范围内的
+                # 都是提交来的
+                begin_time = begin_time_sub
+                end_time = end_time_sub
+                rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time, end_time=end_time)
                 url = rec_data['data']['address']
                 logger.info('get_device_video[data:%s]' % rec_data['data'])
                 return_data = {
@@ -362,7 +409,6 @@ class PlayBackView(VideoView, View):
                 }
                 return result.result(data=return_data, message="success", code=rec_data["code"])
         except Exception as e:
-            # print(rec_data)
             logger.warning('get_device_status_fail[message:%s]' % e)
             return result.params_error(message='请求错误,请重试...')
 

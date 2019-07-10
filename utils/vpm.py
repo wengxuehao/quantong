@@ -198,7 +198,6 @@ class VideoView(BaseData):
         }
         try:
             rec_data = requests.get(url=self.playback_url, params=params, headers=self.auth_token)
-
             rec_data = rec_data.json()
             return rec_data
         except requests.exceptions.ConnectTimeout:
