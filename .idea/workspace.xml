@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6333fcb2-61ab-452f-bbcf-75b4ca7c8402" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/quantong.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/quantong.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/vpm.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/vpm.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,11 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/vpm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="13" column="43" selection-start-line="13" selection-start-column="43" selection-end-line="13" selection-end-column="43" />
+            <state relative-caret-position="204">
+              <caret line="213" column="91" lean-forward="true" selection-start-line="213" selection-start-column="91" selection-end-line="213" selection-end-column="91" />
               <folding>
                 <element signature="e#35#49#0" expanded="true" />
               </folding>
@@ -57,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/middle/user_views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1883">
-              <caret line="74" column="36" selection-start-line="74" selection-start-column="36" selection-end-line="74" selection-end-column="36" />
+            <state relative-caret-position="118">
+              <caret line="314" column="81" selection-start-line="314" selection-start-column="81" selection-end-line="314" selection-end-column="81" />
             </state>
           </provider>
         </entry>
@@ -100,10 +95,8 @@
         <option value="$PROJECT_DIR$/unitests/test_my.py" />
         <option value="$PROJECT_DIR$/my_unittest/__init__.py" />
         <option value="$PROJECT_DIR$/unitests/mydict_test.py" />
-        <option value="$PROJECT_DIR$/utils/vpm.py" />
         <option value="$PROJECT_DIR$/baidu.html" />
         <option value="$PROJECT_DIR$/static/templates/index.html" />
-        <option value="$PROJECT_DIR$/middle/user_views.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/test.html" />
         <option value="$PROJECT_DIR$/quantong/wsgi.py" />
@@ -113,6 +106,8 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/nginx.conf" />
         <option value="$PROJECT_DIR$/demo.py" />
+        <option value="$PROJECT_DIR$/middle/user_views.py" />
+        <option value="$PROJECT_DIR$/utils/vpm.py" />
       </list>
     </option>
   </component>
@@ -129,22 +124,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="quantong" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quantong" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="quantong" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quantong" type="462c0819:PsiDirectoryNode" />
-              <item name="quantong" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -152,7 +132,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="eu.ydp.idea.ts.spec.generator.settings.spec.template" value="import {$ClassName$} from '$TestsRelativePath$../src/$classRelativePath$/$ClassName$';&#10;&#10;describe('$ClassName$', () =&gt; {&#10;  let $ObjName$:$ClassName$;&#10;&#10;  beforeEach(() =&gt; {&#10;    $ObjName$ = new $ClassName$();&#10;  });&#10;&#10;  describe('', () =&gt; {&#10;    it('', () =&gt; {&#10;      // given&#10;&#10;      // when&#10;&#10;      // then&#10;    });&#10;  });&#10;});&#10;" />
-    <property name="last_opened_file_path" value="D:/wxh/shiwu" />
+    <property name="last_opened_file_path" value="D:/wxh/mysite" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="fileTemplates" />
@@ -361,7 +341,7 @@
       <workItem from="1561945329450" duration="23053000" />
       <workItem from="1562032048961" duration="1277000" />
       <workItem from="1562642496930" duration="2530000" />
-      <workItem from="1562724817374" duration="2257000" />
+      <workItem from="1562724817374" duration="3777000" />
     </task>
     <servers />
   </component>
@@ -398,7 +378,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="160367000" />
+    <option name="totallyTimeSpent" value="161887000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1066" extended-state="6" />
@@ -412,7 +392,7 @@
       <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946466" visible="true" weight="0.369379" />
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.32976446" />
       <window_info anchor="bottom" id="Python Console" order="4" weight="0.32976446" />
-      <window_info anchor="bottom" id="Terminal" order="5" sideWeight="0.49946466" weight="0.43435755" />
+      <window_info anchor="bottom" id="Terminal" order="5" sideWeight="0.49946466" weight="0.4334764" />
       <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.5005353" side_tool="true" weight="0.369379" />
       <window_info anchor="bottom" id="Message" order="7" />
       <window_info anchor="bottom" id="Find" order="8" />
@@ -420,7 +400,7 @@
       <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="12" />
-      <window_info anchor="bottom" id="File Transfer" order="13" weight="0.32681563" />
+      <window_info anchor="bottom" id="File Transfer" order="13" visible="true" weight="0.32618025" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -645,16 +625,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/vpm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="13" column="43" selection-start-line="13" selection-start-column="43" selection-end-line="13" selection-end-column="43" />
-          <folding>
-            <element signature="e#35#49#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/quantong/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-616">
@@ -674,8 +644,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/middle/user_views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1883">
-          <caret line="74" column="36" selection-start-line="74" selection-start-column="36" selection-end-line="74" selection-end-column="36" />
+        <state relative-caret-position="118">
+          <caret line="314" column="81" selection-start-line="314" selection-start-column="81" selection-end-line="314" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/vpm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="213" column="91" lean-forward="true" selection-start-line="213" selection-start-column="91" selection-end-line="213" selection-end-column="91" />
+          <folding>
+            <element signature="e#35#49#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
