@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6333fcb2-61ab-452f-bbcf-75b4ca7c8402" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/middle/user_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/middle/user_views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/time_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/time_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/vpm.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/vpm.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,8 +24,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/vpm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="199" column="98" selection-start-line="199" selection-start-column="98" selection-end-line="199" selection-end-column="98" />
+            <state relative-caret-position="293">
+              <caret line="192" column="8" selection-start-line="192" selection-start-column="8" selection-end-line="192" selection-end-column="8" />
               <folding>
                 <element signature="e#35#49#0" expanded="true" />
               </folding>
@@ -36,7 +36,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/quantong/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-616">
+            <state relative-caret-position="-973">
               <caret line="119" column="40" selection-start-line="119" selection-start-column="40" selection-end-line="119" selection-end-column="40" />
             </state>
           </provider>
@@ -57,8 +57,23 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/middle/user_views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="403" column="108" selection-start-line="403" selection-start-column="108" selection-end-line="403" selection-end-column="108" />
+            <state relative-caret-position="483">
+              <caret line="588" column="35" lean-forward="true" selection-start-line="588" selection-start-column="35" selection-end-line="588" selection-end-column="35" />
+              <folding>
+                <element signature="e#12657#19271#0" />
+                <element signature="e#19349#23476#0" />
+                <element signature="e#23602#28300#0" />
+                <element signature="e#26826#28300#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="12" column="11" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -66,8 +81,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/time_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+            <state relative-caret-position="412">
+              <caret line="26" column="5" lean-forward="true" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
               <folding>
                 <element signature="e#24#39#0" expanded="true" />
               </folding>
@@ -118,9 +133,9 @@
         <option value="$PROJECT_DIR$/quantong/settings.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/nginx.conf" />
-        <option value="$PROJECT_DIR$/demo.py" />
         <option value="$PROJECT_DIR$/time_test.py" />
         <option value="$PROJECT_DIR$/utils/vpm.py" />
+        <option value="$PROJECT_DIR$/demo.py" />
         <option value="$PROJECT_DIR$/middle/user_views.py" />
       </list>
     </option>
@@ -156,10 +171,10 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="eu.ydp.idea.ts.spec.generator.settings.spec.template" value="import {$ClassName$} from '$TestsRelativePath$../src/$classRelativePath$/$ClassName$';&#10;&#10;describe('$ClassName$', () =&gt; {&#10;  let $ObjName$:$ClassName$;&#10;&#10;  beforeEach(() =&gt; {&#10;    $ObjName$ = new $ClassName$();&#10;  });&#10;&#10;  describe('', () =&gt; {&#10;    it('', () =&gt; {&#10;      // given&#10;&#10;      // when&#10;&#10;      // then&#10;    });&#10;  });&#10;});&#10;" />
-    <property name="last_opened_file_path" value="D:/wxh/mysite" />
+    <property name="last_opened_file_path" value="D:/wxh/how-to-learn-tensorflow" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -184,6 +199,28 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.time_test">
+    <configuration name="demo" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="quantong" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="manage" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="quantong" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -220,28 +257,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/time_test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="user_views" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="quantong" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/middle" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/middle/user_views.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -313,18 +328,18 @@
     <list>
       <item itemvalue="Django server.quantong" />
       <item itemvalue="Python.manage" />
-      <item itemvalue="Python.user_views" />
       <item itemvalue="Python.wsgi" />
       <item itemvalue="Python tests.Twisted Trial in mydict_test.py" />
       <item itemvalue="Python.time_test" />
+      <item itemvalue="Python.demo" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.time_test" />
+        <item itemvalue="Python.demo" />
         <item itemvalue="Python.manage" />
         <item itemvalue="Python.wsgi" />
         <item itemvalue="Python tests.Twisted Trial in mydict_test.py" />
-        <item itemvalue="Python.user_views" />
       </list>
     </recent_temporary>
   </component>
@@ -365,7 +380,7 @@
       <workItem from="1561945329450" duration="23053000" />
       <workItem from="1562032048961" duration="1277000" />
       <workItem from="1562642496930" duration="2530000" />
-      <workItem from="1562724817374" duration="11924000" />
+      <workItem from="1562724817374" duration="23999000" />
     </task>
     <servers />
   </component>
@@ -402,20 +417,21 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="170034000" />
+    <option name="totallyTimeSpent" value="182109000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1066" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49785867" visible="true" weight="0.21748401" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49785867" visible="true" weight="0.21748401" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50214136" side_tool="true" weight="0.20663811" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946466" weight="0.36909872" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946466" weight="0.22103004" />
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.32976446" />
       <window_info anchor="bottom" id="Python Console" order="4" weight="0.32976446" />
-      <window_info anchor="bottom" id="Terminal" order="5" sideWeight="0.49946466" visible="true" weight="0.4334764" />
+      <window_info anchor="bottom" id="Terminal" order="5" sideWeight="0.49946466" weight="0.38304722" />
       <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.5005353" side_tool="true" weight="0.369379" />
       <window_info anchor="bottom" id="Message" order="7" />
       <window_info anchor="bottom" id="Find" order="8" />
@@ -481,8 +497,9 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/quantong$Twisted_Trial_for_test_my_TestSum_test_list_int.coverage" NAME="Twisted Trial for test_my.TestSum.test_list_int Coverage Results" MODIFIED="1560743416950" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/unitests" />
+    <SUITE FILE_PATH="coverage/quantong$demo.coverage" NAME="demo Coverage Results" MODIFIED="1562745892323" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/quantong$test_word.coverage" NAME="test_word Coverage Results" MODIFIED="1560248548909" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/quantong$time_test.coverage" NAME="time_test Coverage Results" MODIFIED="1562734441224" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/quantong$time_test.coverage" NAME="time_test Coverage Results" MODIFIED="1562748666952" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/quantong$test.coverage" NAME="test Coverage Results" MODIFIED="1560134713085" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/quantong$user_views.coverage" NAME="user_views Coverage Results" MODIFIED="1560765382476" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/middle" />
     <SUITE FILE_PATH="coverage/quantong$yasuo.coverage" NAME="yasuo Coverage Results" MODIFIED="1560755892181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -632,20 +649,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/quantong/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-616">
-          <caret line="119" column="40" selection-start-line="119" selection-start-column="40" selection-end-line="119" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -656,30 +659,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/vpm.py">
+    <entry file="file://$PROJECT_DIR$/quantong/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="199" column="98" selection-start-line="199" selection-start-column="98" selection-end-line="199" selection-end-column="98" />
-          <folding>
-            <element signature="e#35#49#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-973">
+          <caret line="119" column="40" selection-start-line="119" selection-start-column="40" selection-end-line="119" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="12" column="11" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/time_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+        <state relative-caret-position="412">
+          <caret line="26" column="5" lean-forward="true" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
           <folding>
             <element signature="e#24#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/utils/vpm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="192" column="8" selection-start-line="192" selection-start-column="8" selection-end-line="192" selection-end-column="8" />
+          <folding>
+            <element signature="e#35#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/middle/user_views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="403" column="108" selection-start-line="403" selection-start-column="108" selection-end-line="403" selection-end-column="108" />
+        <state relative-caret-position="483">
+          <caret line="588" column="35" lean-forward="true" selection-start-line="588" selection-start-column="35" selection-end-line="588" selection-end-column="35" />
+          <folding>
+            <element signature="e#12657#19271#0" />
+            <element signature="e#19349#23476#0" />
+            <element signature="e#23602#28300#0" />
+            <element signature="e#26826#28300#0" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -307,79 +307,267 @@ class PlayBackView(VideoView, View):
                 begin_time_zero = int(time.time()) - int(time.time() - time.timezone) % 86400
                 end_time_zero = begin_time_zero + 86400
                 try:
-                    camera_id1 = camera_id
-                    rec_data1 = self.get_file(camera_id=camera_id1)
-                    # print(rec_data1)
-                    # 获取录像文件信息,查询录像文件在什么范围内有,然后下载和回放才有效
-                    if rec_data1['message'] == "录像信息为空" or rec_data1['data'] == {} or rec_data1['data'] == '':
-                        logger.error('get_device_video_error[data:%s]' % rec_data1['data'])
-                        return result.result(code=rec_data1['code'], data=rec_data1, message='查询录像error请校验录像文件信息')
-                    else:
-                        # 当success,以及data有数据时候,查询录像文件的范围
-                        # logger.info('get_device_video[data:%s]' % rec_data1['data'])
-                        logger.info('video_list:%s' % rec_data1['data']['cList'])
-                        rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time_zero,
-                                                   end_time=end_time_zero)
-                        # print(rec_data)
-                        if rec_data['data'] == '' or rec_data['message'] == '在此时间段内无对应的录像文件':
-                            logger.error('video_list_message:%s' % rec_data['message'])
-                            return result.result(code=rec_data['code'], data=rec_data1['data']['cList'],
-                                                 message=rec_data['message'])
+                    camera_id_file = camera_id
+                    rec_data_file = self.get_file(camera_id=camera_id_file)
+                    print(rec_data_file)
+                    nStart = rec_data_file['data']['cList'][0]['nStart']
+                    nEnd = rec_data_file['data']['cList'][0]['nEnd']
+                    if begin_time_zero < nStart and end_time_zero > nEnd:
+
+                        # 当传递的区间左边和右边都大于有的区间，只能返回有的区间
+                        if rec_data_file['message'] == "录像信息为空" or rec_data_file['data'] == {} or rec_data_file[
+                            'data'] == '':
+                            logger.error('get_device_video_error[data:%s]' % rec_data_file['data'])
+                            return result.result(code=rec_data_file['code'], data=rec_data_file,
+                                                 message='查询录像error请校验录像文件信息')
                         else:
-                            url = rec_data['data']['address']
-                            logger.info('get_device_video[data:%s]' % rec_data['data'])
-                            return_data = {
-                                "data": {
-                                    "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
-                                             {"playbackUrl": url}],
-                                    "total": 1,
-                                    "totalTimeUrl": url
-                                },
-                                "isWarning": 0
-                            }
-                            return result.result(data=return_data, message="success", code=rec_data["code"])
-                        # return JsonResponse(data=rec_data)
+                            rec_data = self.video_view(camera_id=camera_id, begin_time=nStart,
+                                                       end_time=nEnd)
+                            if rec_data['data'] == '' or rec_data['message'] == '在此时间段内无对应的录像文件':
+                                logger.error('video_list_message:%s' % rec_data['message'])
+                                return result.result(code=rec_data['code'], data=rec_data_file['data']['cList'],
+                                                     message=rec_data['message'])
+                            else:
+                                url = rec_data['data']['address']
+                                logger.info('get_device_video[data:%s]' % rec_data['data'])
+                                return_data = {
+                                    "data": {
+                                        "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                                 {"playbackUrl": url}],
+                                        "total": 1,
+                                        "totalTimeUrl": url
+                                    },
+                                    "isWarning": 0
+                                }
+                                return result.result(data=return_data, message="success", code=rec_data["code"])
+
+                    elif begin_time_zero < nStart:
+                        # 当左侧超过可用区间
+                        if rec_data_file['message'] == "录像信息为空" or rec_data_file['data'] == {} or rec_data_file[
+                            'data'] == '':
+                            logger.error('get_device_video_error[data:%s]' % rec_data_file['data'])
+                            return result.result(code=rec_data_file['code'], data=rec_data_file,
+                                                 message='查询录像error请校验录像文件信息')
+                        else:
+                            rec_data = self.video_view(camera_id=camera_id, begin_time=nStart,
+                                                       end_time=end_time_zero)
+                            # print(rec_data)
+                            if rec_data['data'] == '' or rec_data['message'] == '在此时间段内无对应的录像文件':
+                                logger.error('video_list_message:%s' % rec_data['message'])
+                                return result.result(code=rec_data['code'], data=rec_data_file['data']['cList'],
+                                                     message=rec_data['message'])
+                            else:
+                                url = rec_data['data']['address']
+                                logger.info('get_device_video[data:%s]' % rec_data['data'])
+                                return_data = {
+                                    "data": {
+                                        "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                                 {"playbackUrl": url}],
+                                        "total": 1,
+                                        "totalTimeUrl": url
+                                    },
+                                    "isWarning": 0
+                                }
+                                return result.result(data=return_data, message="success", code=rec_data["code"])
+                    elif end_time_zero > nEnd:
+                        # 当右侧超过可用区间
+                        if rec_data_file['message'] == "录像信息为空" or rec_data_file['data'] == {} or rec_data_file[
+                            'data'] == '':
+                            logger.error('get_device_video_error[data:%s]' % rec_data_file['data'])
+                            return result.result(code=rec_data_file['code'], data=rec_data_file,
+                                                 message='查询录像error请校验录像文件信息')
+                        else:
+                            rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time_zero,
+                                                       end_time=nEnd)
+                            # print(rec_data)
+                            if rec_data['data'] == '' or rec_data['message'] == '在此时间段内无对应的录像文件':
+                                logger.error('video_list_message:%s' % rec_data['message'])
+                                return result.result(code=rec_data['code'], data=rec_data_file['data']['cList'],
+                                                     message=rec_data['message'])
+                            else:
+                                url = rec_data['data']['address']
+                                logger.info('get_device_video[data:%s]' % rec_data['data'])
+                                return_data = {
+                                    "data": {
+                                        "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                                 {"playbackUrl": url}],
+                                        "total": 1,
+                                        "totalTimeUrl": url
+                                    },
+                                    "isWarning": 0
+                                }
+                                return result.result(data=return_data, message="success", code=rec_data["code"])
                 except Exception as e:
-                    logger.warning('get_device_status_fail[message:%s]' % e)
+                    logger.warning('get_video_fail[message:%s]' % e)
                     return result.result(message='当前时间段没有录像信息或者录像文件生成失败', data={})
                     # print(e)
             elif begin_time_sub != 0 and end_time_sub == 0:
-                camera_id1 = camera_id
-                rec_data1 = self.get_file(camera_id=camera_id1)
+                camera_id_file = camera_id
+                rec_data_file = self.get_file(camera_id=camera_id_file)
+                nStart = rec_data_file['data']['cList'][0]['nStart']
+                nEnd = rec_data_file['data']['cList'][0]['nEnd']
                 # 开始时间是提供来的，结束时间是明天零点
                 begin_time_zero = int(time.time()) - int(time.time() - time.timezone) % 86400
                 end_time_zero = begin_time_zero + 86400
-                rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time_sub, end_time=end_time_zero)
-                if rec_data["code"] >= 400 or rec_data["code"] < 200:
-                    logger.error('get_device_video_error[data:%s]' % rec_data['data'])
-                    return result.result(code=rec_data['code'], data=rec_data1['data']['cList'],
-                                        message=rec_data['message'])
-                else:
-                    url = rec_data['data']['address']
-                    logger.info('get_device_video[data:%s]' % rec_data['data'])
-                    return_data = {
-                        "data": {
-                            "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)}, {"playbackUrl": url}],
-                            "total": 1,
-                            "totalTimeUrl": url
-                        },
-                        "isWarning": 0
-                    }
-                    return result.result(data=return_data, message="success", code=rec_data["code"])
+                if begin_time_sub < nStart and end_time_zero > nEnd:
+                    # 左右区间都大于可用区间情况下
+                    rec_data = self.video_view(camera_id=camera_id, begin_time=nStart, end_time=nEnd)
+                    if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                        logger.error('get_device_video_error[data:%s]' % rec_data['data'])
+                        return result.result(code=rec_data['code'], data=rec_data_file['data']['cList'],
+                                             message=rec_data['message'])
+                    else:
+                        url = rec_data['data']['address']
+                        logger.info('get_device_video[data:%s]' % rec_data['data'])
+                        return_data = {
+                            "data": {
+                                "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                         {"playbackUrl": url}],
+                                "total": 1,
+                                "totalTimeUrl": url
+                            },
+                            "isWarning": 0
+                        }
+                        return result.result(data=return_data, message="success", code=rec_data["code"])
+                elif begin_time_sub < nStart:
+                    # 左侧区间不在可用区间内
+                    rec_data = self.video_view(camera_id=camera_id, begin_time=nStart, end_time=end_time_zero)
+                    if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                        logger.error('get_device_video_error[data:%s]' % rec_data['data'])
+                        return result.result(code=rec_data['code'], data=rec_data_file['data']['cList'],
+                                             message=rec_data['message'])
+                    else:
+                        url = rec_data['data']['address']
+                        logger.info('get_device_video[data:%s]' % rec_data['data'])
+                        return_data = {
+                            "data": {
+                                "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                         {"playbackUrl": url}],
+                                "total": 1,
+                                "totalTimeUrl": url
+                            },
+                            "isWarning": 0
+                        }
+                        return result.result(data=return_data, message="success", code=rec_data["code"])
+                elif end_time_zero > nEnd:
+                    # 右侧区间不在可用区间内
+                    rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time_sub, end_time=nEnd)
+                    if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                        logger.error('get_device_video_error[data:%s]' % rec_data['data'])
+                        return result.result(code=rec_data['code'], data=rec_data_file['data']['cList'],
+                                             message=rec_data['message'])
+                    else:
+                        url = rec_data['data']['address']
+                        logger.info('get_device_video[data:%s]' % rec_data['data'])
+                        return_data = {
+                            "data": {
+                                "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                         {"playbackUrl": url}],
+                                "total": 1,
+                                "totalTimeUrl": url
+                            },
+                            "isWarning": 0
+                        }
+                        return result.result(data=return_data, message="success", code=rec_data["code"])
             elif begin_time_sub == 0 and end_time_sub != 0:
-
-                camera_id1 = camera_id
-                rec_data1 = self.get_file(camera_id=camera_id1)
-                # print(rec_data1)
+                camera_id_file = camera_id
+                rec_data_file = self.get_file(camera_id=camera_id_file)
+                nStart = rec_data_file['data']['cList'][0]['nStart']
+                nEnd = rec_data_file['data']['cList'][0]['nEnd']
                 # 当提交来的开始时间是当天零点，结束时间是提交来的
-                begin_time_zero = int(time.time()) - int(time.time() - time.timezone) % 86400
-                rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time_zero, end_time=end_time_sub)
-                print(rec_data)
-                if rec_data["code"] >= 400 or rec_data["code"] < 200:
-                    logger.error('get_device_video_error[data:%s]' % rec_data['data'])
-                    return result.result(code=rec_data['code'],data=rec_data1['data']['cList'],
-                                        message=rec_data['message'])
-                else:
+                if begin_time_sub < nStart and end_time_sub > nEnd:
+                    # TODO 两侧区间都不在可用范围内
+                    rec_data = self.video_view(camera_id=camera_id, begin_time=nStart, end_time=nEnd)
+                    if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                        logger.error('get_device_video_error[data:%s]' % rec_data['data'])
+                        return result.result(code=rec_data['code'], data=rec_data_file['data']['cList'],
+                                             message=rec_data['message'])
+                    else:
+                        rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time_sub,
+                                                   end_time=end_time_sub)
+                        url = rec_data['data']['address']
+                        logger.info('get_device_video[data:%s]' % rec_data['data'])
+                        return_data = {
+                            "data": {
+                                "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                         {"playbackUrl": url}],
+                                "total": 1,
+                                "totalTimeUrl": url
+                            },
+                            "isWarning": 0
+                        }
+                        return result.result(data=return_data, message="success", code=rec_data["code"])
+                elif begin_time_sub < nStart:
+                    # 当左侧不在范围内
+                    rec_data = self.video_view(camera_id=camera_id, begin_time=nStart, end_time=end_time_sub)
+
+                    if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                        logger.error('get_device_video_error[data:%s]' % rec_data['data'])
+                        return result.result(code=rec_data['code'], data=rec_data_file['data']['cList'],
+                                             message=rec_data['message'])
+                    else:
+                        url = rec_data['data']['address']
+                        logger.info('get_device_video[data:%s]' % rec_data['data'])
+                        return_data = {
+                            "data": {
+                                "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                         {"playbackUrl": url}],
+                                "total": 1,
+                                "totalTimeUrl": url
+                            },
+                            "isWarning": 0
+                        }
+                        return result.result(data=return_data, message="success", code=rec_data["code"])
+                elif end_time_sub > nEnd:
+                    # 当右侧不在范围内
+                    begin_time_zero = int(time.time()) - int(time.time() - time.timezone) % 86400
+                    rec_data = self.video_view(camera_id=camera_id, begin_time=nStart, end_time=nEnd)
+                    if rec_data["code"] >= 400 or rec_data["code"] < 200:
+                        logger.error('get_device_video_error[data:%s]' % rec_data['data'])
+                        return result.result(code=rec_data['code'], data=rec_data_file['data']['cList'],
+                                             message=rec_data['message'])
+                    else:
+                        rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time_sub,
+                                                   end_time=end_time_sub)
+                        url = rec_data['data']['address']
+                        logger.info('get_device_video[data:%s]' % rec_data['data'])
+                        return_data = {
+                            "data": {
+                                "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                         {"playbackUrl": url}],
+                                "total": 1,
+                                "totalTimeUrl": url
+                            },
+                            "isWarning": 0
+                        }
+                        return result.result(data=return_data, message="success", code=rec_data["code"])
+            else:
+                # 当传递的时间两侧都不为0的情况
+                camera_id_file = camera_id
+                rec_data_file = self.get_file(camera_id=camera_id_file)
+                nStart = rec_data_file['data']['cList'][0]['nStart']
+                nEnd = rec_data_file['data']['cList'][0]['nEnd']
+                if begin_time_sub < nStart and end_time_sub > nEnd:
+                    # 当传递的两侧都是不在范围内的
+                    rec_data = self.video_view(camera_id=camera_id, begin_time=nStart, end_time=nEnd)
+                    if rec_data['data'] == '':
+                        return result.result(data=rec_data)
+                    url = rec_data['data']['address']
+                    logger.info('get_device_video[data:%s]' % rec_data['data'])
+                    return_data = {
+                        "data": {
+                            "list": [{"beginTime": str(nStart)}, {"endTime": str(nEnd)}, {"playbackUrl": url}],
+                            "total": 1,
+                            "totalTimeUrl": url
+                        },
+                        "isWarning": 0
+                    }
+                    return result.result(data=return_data, message="success", code=rec_data["code"])
+                elif begin_time_sub < nStart:
+                    # 当左侧不在范围内
+                    rec_data = self.video_view(camera_id=camera_id, begin_time=nStart, end_time=end_time_sub)
+                    if rec_data['data'] == '':
+                        return result.result(data=rec_data)
                     url = rec_data['data']['address']
                     logger.info('get_device_video[data:%s]' % rec_data['data'])
                     return_data = {
@@ -391,25 +579,40 @@ class PlayBackView(VideoView, View):
                         "isWarning": 0
                     }
                     return result.result(data=return_data, message="success", code=rec_data["code"])
-            else:
-                # 当传递的时间在可用范围内的
-                # 都是提交来的
-                begin_time = begin_time_sub
-                end_time = end_time_sub
-                rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time, end_time=end_time)
-                url = rec_data['data']['address']
-                logger.info('get_device_video[data:%s]' % rec_data['data'])
-                return_data = {
-                    "data": {
-                        "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)}, {"playbackUrl": url}],
-                        "total": 1,
-                        "totalTimeUrl": url
-                    },
-                    "isWarning": 0
-                }
-                return result.result(data=return_data, message="success", code=rec_data["code"])
+                elif end_time_sub > nEnd:
+                    # 当右侧不在范围内
+                    rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time_sub, end_time=nEnd)
+                    if rec_data['data'] == '':
+                        return result.result(data=rec_data)
+                    url = rec_data['data']['address']
+                    logger.info('get_device_video[data:%s]' % rec_data['data'])
+                    return_data = {
+                        "data": {
+                            "list": [{"beginTime": str(begin_time_sub)}, {"endTime": str(nEnd)}, {"playbackUrl": url}],
+                            "total": 1,
+                            "totalTimeUrl": url
+                        },
+                        "isWarning": 0
+                    }
+                    return result.result(data=return_data, message="success", code=rec_data["code"])
+                else:
+                    # 当传递的两个时间都在范围内的
+                    rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time_sub, end_time=end_time_sub)
+                    if rec_data['data'] == '':
+                        return result.result(data=rec_data)
+                    url = rec_data['data']['address']
+                    logger.info('get_device_video[data:%s]' % rec_data['data'])
+                    return_data = {
+                        "data": {
+                            "list": [{"beginTime": str(begin_time_sub)}, {"endTime": str(end_time_sub)}, {"playbackUrl": url}],
+                            "total": 1,
+                            "totalTimeUrl": url
+                        },
+                        "isWarning": 0
+                    }
+                    return result.result(data=return_data, message="success", code=rec_data["code"])
         except Exception as e:
-            logger.warning('get_device_status_fail[message:%s]' % e)
+            logger.warning('get_video_fail[message:%s]' % e)
             return result.params_error(message='请求错误,请重试...')
 
 
@@ -431,20 +634,21 @@ class DownLoadView(DownLoadVideo, View):
                 begin_time = int(time.time()) - int(time.time() - time.timezone) % 86400
                 if end_time == 0:
                     try:
-                        camera_id1 = camera_id
-                        rec_data1 = self.get_file(camera_id=camera_id1)
-                        # print(rec_data1)
+                        camera_id_file = camera_id
+                        rec_data_file = self.get_file(camera_id=camera_id_file)
+                        # print(rec_data_file)
                         # 获取录像文件信息,查询录像文件在什么范围内有,然后下载和回访才有效
-                        if rec_data1['message'] == "录像信息为空" or rec_data1['data'] == {} or rec_data1['data'] == '':
-                            logger.error('device_download_error[data:%s]' % rec_data1['data'])
-                            return result.result(data=rec_data1['data'], message='设备下载文件error',
-                                                 code=rec_data1['code'])
-                            # end_time = rec_data1['data']['cList'][-1]['nEnd']
+                        if rec_data_file['message'] == "录像信息为空" or rec_data_file['data'] == {} or rec_data_file[
+                            'data'] == '':
+                            logger.error('device_download_error[data:%s]' % rec_data_file['data'])
+                            return result.result(data=rec_data_file['data'], message='设备下载文件error',
+                                                 code=rec_data_file['code'])
+                            # end_time = rec_data_file['data']['cList'][-1]['nEnd']
                         else:
                             # 当success,以及data有数据时候,查询录像文件的范围
-                            logger.info('device_download_normal[data:%s]' % rec_data1['data'])
-                            begin_time = rec_data1['data']['cList'][-1]['nStart']
-                            end_time = rec_data1['data']['cList'][-1]['nEnd']
+                            logger.info('device_download_normal[data:%s]' % rec_data_file['data'])
+                            begin_time = rec_data_file['data']['cList'][-1]['nStart']
+                            end_time = rec_data_file['data']['cList'][-1]['nEnd']
                             rec_data = self.down_load(camera_id=camera_id, begin_time=begin_time, end_time=end_time)
                             logger.info(rec_data)
                             if rec_data["code"] >= 400 or rec_data["code"] < 200 or rec_data[
