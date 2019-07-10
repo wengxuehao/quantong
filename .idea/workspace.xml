@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6333fcb2-61ab-452f-bbcf-75b4ca7c8402" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/demo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/middle/user_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/middle/user_views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -57,13 +54,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/middle/user_views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="588" column="35" lean-forward="true" selection-start-line="588" selection-start-column="35" selection-end-line="588" selection-end-column="35" />
+            <state relative-caret-position="396">
+              <caret line="512" column="97" selection-start-line="512" selection-start-column="97" selection-end-line="512" selection-end-column="97" />
               <folding>
                 <element signature="e#12657#19271#0" />
                 <element signature="e#19349#23476#0" />
-                <element signature="e#23602#28300#0" />
-                <element signature="e#26826#28300#0" />
               </folding>
             </state>
           </provider>
@@ -380,7 +375,7 @@
       <workItem from="1561945329450" duration="23053000" />
       <workItem from="1562032048961" duration="1277000" />
       <workItem from="1562642496930" duration="2530000" />
-      <workItem from="1562724817374" duration="23999000" />
+      <workItem from="1562724817374" duration="25029000" />
     </task>
     <servers />
   </component>
@@ -417,7 +412,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="182109000" />
+    <option name="totallyTimeSpent" value="183139000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1066" extended-state="6" />
@@ -695,13 +690,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/middle/user_views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="588" column="35" lean-forward="true" selection-start-line="588" selection-start-column="35" selection-end-line="588" selection-end-column="35" />
+        <state relative-caret-position="396">
+          <caret line="512" column="97" selection-start-line="512" selection-start-column="97" selection-end-line="512" selection-end-column="97" />
           <folding>
             <element signature="e#12657#19271#0" />
             <element signature="e#19349#23476#0" />
-            <element signature="e#23602#28300#0" />
-            <element signature="e#26826#28300#0" />
           </folding>
         </state>
       </provider>

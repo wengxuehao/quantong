@@ -332,7 +332,7 @@ class PlayBackView(VideoView, View):
                                 logger.info('get_device_video[data:%s]' % rec_data['data'])
                                 return_data = {
                                     "data": {
-                                        "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                        "list": [{"beginTime": str(nStart)}, {"endTime": str(nEnd)},
                                                  {"playbackUrl": url}],
                                         "total": 1,
                                         "totalTimeUrl": url
@@ -361,7 +361,7 @@ class PlayBackView(VideoView, View):
                                 logger.info('get_device_video[data:%s]' % rec_data['data'])
                                 return_data = {
                                     "data": {
-                                        "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                        "list": [{"beginTime": str(nStart)}, {"endTime": str(end_time_zero)},
                                                  {"playbackUrl": url}],
                                         "total": 1,
                                         "totalTimeUrl": url
@@ -389,7 +389,7 @@ class PlayBackView(VideoView, View):
                                 logger.info('get_device_video[data:%s]' % rec_data['data'])
                                 return_data = {
                                     "data": {
-                                        "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                        "list": [{"beginTime": str(begin_time_zero)}, {"endTime": str(nEnd)},
                                                  {"playbackUrl": url}],
                                         "total": 1,
                                         "totalTimeUrl": url
@@ -421,7 +421,7 @@ class PlayBackView(VideoView, View):
                         logger.info('get_device_video[data:%s]' % rec_data['data'])
                         return_data = {
                             "data": {
-                                "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                "list": [{"beginTime": str(nStart)}, {"endTime": str(nEnd)},
                                          {"playbackUrl": url}],
                                 "total": 1,
                                 "totalTimeUrl": url
@@ -441,7 +441,7 @@ class PlayBackView(VideoView, View):
                         logger.info('get_device_video[data:%s]' % rec_data['data'])
                         return_data = {
                             "data": {
-                                "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                "list": [{"beginTime": str(nStart)}, {"endTime": str(end_time_zero)},
                                          {"playbackUrl": url}],
                                 "total": 1,
                                 "totalTimeUrl": url
@@ -461,7 +461,7 @@ class PlayBackView(VideoView, View):
                         logger.info('get_device_video[data:%s]' % rec_data['data'])
                         return_data = {
                             "data": {
-                                "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                "list": [{"beginTime": str(begin_time_sub)}, {"endTime": str(nEnd)},
                                          {"playbackUrl": url}],
                                 "total": 1,
                                 "totalTimeUrl": url
@@ -489,7 +489,7 @@ class PlayBackView(VideoView, View):
                         logger.info('get_device_video[data:%s]' % rec_data['data'])
                         return_data = {
                             "data": {
-                                "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                "list": [{"beginTime": str(begin_time_sub)}, {"endTime": str(end_time_sub)},
                                          {"playbackUrl": url}],
                                 "total": 1,
                                 "totalTimeUrl": url
@@ -510,7 +510,7 @@ class PlayBackView(VideoView, View):
                         logger.info('get_device_video[data:%s]' % rec_data['data'])
                         return_data = {
                             "data": {
-                                "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                "list": [{"beginTime": str(nStart)}, {"endTime": str(end_time_sub)},
                                          {"playbackUrl": url}],
                                 "total": 1,
                                 "totalTimeUrl": url
@@ -528,12 +528,12 @@ class PlayBackView(VideoView, View):
                                              message=rec_data['message'])
                     else:
                         rec_data = self.video_view(camera_id=camera_id, begin_time=begin_time_sub,
-                                                   end_time=end_time_sub)
+                                                   end_time=nEnd)
                         url = rec_data['data']['address']
                         logger.info('get_device_video[data:%s]' % rec_data['data'])
                         return_data = {
                             "data": {
-                                "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)},
+                                "list": [{"beginTime": str(begin_time_sub)}, {"endTime": str(nEnd)},
                                          {"playbackUrl": url}],
                                 "total": 1,
                                 "totalTimeUrl": url
@@ -572,7 +572,7 @@ class PlayBackView(VideoView, View):
                     logger.info('get_device_video[data:%s]' % rec_data['data'])
                     return_data = {
                         "data": {
-                            "list": [{"beginTime": str(begin_time)}, {"endTime": str(end_time)}, {"playbackUrl": url}],
+                            "list": [{"beginTime": str(nStart)}, {"endTime": str(end_time_sub)}, {"playbackUrl": url}],
                             "total": 1,
                             "totalTimeUrl": url
                         },
