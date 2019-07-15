@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6333fcb2-61ab-452f-bbcf-75b4ca7c8402" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/middle/user_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/middle/user_views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +23,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/vpm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="192" column="8" selection-start-line="192" selection-start-column="8" selection-end-line="192" selection-end-column="8" />
+            <state relative-caret-position="350">
+              <caret line="171" column="29" selection-end-line="261" />
               <folding>
                 <element signature="e#35#49#0" expanded="true" />
               </folding>
@@ -33,8 +35,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/quantong/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-973">
-              <caret line="119" column="40" selection-start-line="119" selection-start-column="40" selection-end-line="119" selection-end-column="40" />
+            <state relative-caret-position="396">
+              <caret line="100" column="21" selection-start-line="100" selection-start-column="20" selection-end-line="100" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="483">
+              <caret line="21" column="4" lean-forward="true" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -42,7 +53,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/manage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
+            <state relative-caret-position="322">
               <caret line="15" selection-start-line="15" selection-end-line="15" />
               <folding>
                 <element signature="e#22#31#0" expanded="true" />
@@ -51,15 +62,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/middle/user_views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="512" column="97" selection-start-line="512" selection-start-column="97" selection-end-line="512" selection-end-column="97" />
-              <folding>
-                <element signature="e#12657#19271#0" />
-                <element signature="e#19349#23476#0" />
-              </folding>
+            <state relative-caret-position="9062">
+              <caret line="410" column="55" selection-start-line="410" selection-start-column="55" selection-end-line="410" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -76,8 +83,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/time_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="26" column="5" lean-forward="true" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
+            <state relative-caret-position="552">
+              <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
               <folding>
                 <element signature="e#24#39#0" expanded="true" />
               </folding>
@@ -110,7 +117,6 @@
         <option value="$PROJECT_DIR$/quantong/urls.py" />
         <option value="$PROJECT_DIR$/utils/test.py" />
         <option value="$PROJECT_DIR$/middle/urls.py" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/test_word.py" />
         <option value="$PROJECT_DIR$/heros.py" />
         <option value="$PROJECT_DIR$/yasuo.py" />
@@ -132,6 +138,7 @@
         <option value="$PROJECT_DIR$/utils/vpm.py" />
         <option value="$PROJECT_DIR$/demo.py" />
         <option value="$PROJECT_DIR$/middle/user_views.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -147,7 +154,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -159,6 +165,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -324,9 +331,9 @@
       <item itemvalue="Django server.quantong" />
       <item itemvalue="Python.manage" />
       <item itemvalue="Python.wsgi" />
-      <item itemvalue="Python tests.Twisted Trial in mydict_test.py" />
       <item itemvalue="Python.time_test" />
       <item itemvalue="Python.demo" />
+      <item itemvalue="Python tests.Twisted Trial in mydict_test.py" />
     </list>
     <recent_temporary>
       <list>
@@ -375,7 +382,11 @@
       <workItem from="1561945329450" duration="23053000" />
       <workItem from="1562032048961" duration="1277000" />
       <workItem from="1562642496930" duration="2530000" />
-      <workItem from="1562724817374" duration="25029000" />
+      <workItem from="1562724817374" duration="25370000" />
+      <workItem from="1562810425404" duration="615000" />
+      <workItem from="1562814029975" duration="873000" />
+      <workItem from="1562824777029" duration="372000" />
+      <workItem from="1563160620708" duration="1225000" />
     </task>
     <servers />
   </component>
@@ -412,13 +423,13 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="183139000" />
+    <option name="totallyTimeSpent" value="186565000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49785867" visible="true" weight="0.21748401" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49785867" visible="true" weight="0.2260128" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50214136" side_tool="true" weight="0.20663811" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
@@ -426,7 +437,7 @@
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946466" weight="0.22103004" />
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.32976446" />
       <window_info anchor="bottom" id="Python Console" order="4" weight="0.32976446" />
-      <window_info anchor="bottom" id="Terminal" order="5" sideWeight="0.49946466" weight="0.38304722" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="5" sideWeight="0.49946466" visible="true" weight="0.38197425" />
       <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.5005353" side_tool="true" weight="0.369379" />
       <window_info anchor="bottom" id="Message" order="7" />
       <window_info anchor="bottom" id="Find" order="8" />
@@ -627,13 +638,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" selection-start-column="19" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/middle/views.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -646,7 +650,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
+        <state relative-caret-position="322">
           <caret line="15" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="e#22#31#0" expanded="true" />
@@ -654,10 +658,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quantong/settings.py">
+    <entry file="file://$PROJECT_DIR$/middle/user_views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-973">
-          <caret line="119" column="40" selection-start-line="119" selection-start-column="40" selection-end-line="119" selection-end-column="40" />
+        <state relative-caret-position="9062">
+          <caret line="410" column="55" selection-start-line="410" selection-start-column="55" selection-end-line="410" selection-end-column="55" />
         </state>
       </provider>
     </entry>
@@ -670,8 +674,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/time_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="26" column="5" lean-forward="true" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
+        <state relative-caret-position="552">
+          <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
           <folding>
             <element signature="e#24#39#0" expanded="true" />
           </folding>
@@ -680,22 +684,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/vpm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="192" column="8" selection-start-line="192" selection-start-column="8" selection-end-line="192" selection-end-column="8" />
+        <state relative-caret-position="350">
+          <caret line="171" column="29" selection-end-line="261" />
           <folding>
             <element signature="e#35#49#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/middle/user_views.py">
+    <entry file="file://$PROJECT_DIR$/quantong/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
-          <caret line="512" column="97" selection-start-line="512" selection-start-column="97" selection-end-line="512" selection-end-column="97" />
-          <folding>
-            <element signature="e#12657#19271#0" />
-            <element signature="e#19349#23476#0" />
-          </folding>
+          <caret line="100" column="21" selection-start-line="100" selection-start-column="20" selection-end-line="100" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="21" column="4" lean-forward="true" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
         </state>
       </provider>
     </entry>
