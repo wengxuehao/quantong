@@ -31,7 +31,7 @@ python-memcached==1.59
 #python-systemd==231
 python3-memcached==1.51
 pytz==2019.1
-PyYAML==3.11
+PyYAML==5.4
 requests==2.22.0
 simplegeneric==0.8.1
 six==1.10.0
