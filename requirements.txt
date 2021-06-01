@@ -39,4 +39,4 @@ sqlparse==0.3.0
 #ssh-import-id==5.5
 #ufw==0.35
 #unattended-upgrades==0.1
-urllib3==1.25.2
+urllib3==1.26.5
