@@ -6,7 +6,7 @@ chardet==3.0.4
 configobj==5.0.6
 cryptography==1.2.3
 decorator==4.0.6
-Django==2.0.1
+Django==2.2.24
 django-memcached==0.1.2
 djangorestframework==3.9.1
 httpie==1.0.2
